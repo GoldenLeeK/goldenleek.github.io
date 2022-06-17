@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>菜鸟程序员的博客</title>
+  <title>UndefinedCode的博客</title>
   
   <subtitle>面向谷歌编程的程序员</subtitle>
   <link href="https://goldenleek.top/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://goldenleek.top/</id>
   
   <author>
-    <name>Lee</name>
+    <name>UndefinedCode</name>
     
   </author>
   

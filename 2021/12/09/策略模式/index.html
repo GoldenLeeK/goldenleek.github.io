@@ -8,22 +8,22 @@
   <meta name="renderer" content="webkit">
 
   
-  <title>PHP策略模式在业务的实践总结 | 菜鸟程序员的博客</title>
+  <title>PHP策略模式在业务的实践总结 | UndefinedCode的博客</title>
 
   <link rel="shortcut icon" href="/images/favicon.png">
-  <link rel="alternate" href="/atom.xml" title="菜鸟程序员的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
   <meta name="description" content="【大话设计模式】– 策略者模式(Strategy):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。  策略模式的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。 一. 业务需求背景1.需求目的：用户可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP策略模式在业务的实践总结">
 <meta property="og:url" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
-<meta property="og:site_name" content="菜鸟程序员的博客">
+<meta property="og:site_name" content="UndefinedCode的博客">
 <meta property="og:description" content="【大话设计模式】– 策略者模式(Strategy):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。  策略模式的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。 一. 业务需求背景1.需求目的：用户可">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://goldenleek.top/1.png">
 <meta property="og:image" content="https://goldenleek.top/2.png">
 <meta property="article:published_time" content="2021-12-09T01:14:18.000Z">
 <meta property="article:modified_time" content="2022-06-17T02:13:00.040Z">
-<meta property="article:author" content="Lee">
+<meta property="article:author" content="UndefinedCode">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="代码设计">
 <meta property="article:tag" content="PHP">
@@ -35,11 +35,11 @@
   <meta name="theme-color" content="#9C27B0">
 
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="菜鸟程序员的博客">
+  <meta name="application-name" content="UndefinedCode的博客">
   <meta name="msapplication-starturl" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="菜鸟程序员的博客">
+  <meta name="apple-mobile-web-app-title" content="UndefinedCode的博客">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
@@ -69,7 +69,7 @@
   <header id="header" class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-inset">
   <div class="mdui-toolbar mdui-color-theme">
     <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="mdui-icon material-icons">menu</i></a>
-    <a href="/" class="mdui-typo-headline">菜鸟程序员的博客</a>
+    <a href="/" class="mdui-typo-headline">UndefinedCode的博客</a>
     <div class="mdui-toolbar-spacer"></div>
     <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: '搜索'}"><i class="mdui-icon material-icons">search</i></a>
     <a href="/atom.xml" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'RSS'}"><i class="mdui-icon material-icons">rss_feed</i></a>
@@ -88,7 +88,7 @@
     <img src="/images/avatar.jpg" class="avatar-animation" style="position: absolute; top: 10%; left: 24px; width: 64px; height: 64px; border: 2px solid #fff; border-radius: 50%;">
     <div class="mdui-grid-tile-actions">
       <div class="mdui-grid-tile-text">
-        <div class="mdui-grid-tile-title">Lee</div>
+        <div class="mdui-grid-tile-title">UndefinedCode</div>
         <div class="mdui-grid-tile-subtitle"><i class="mdui-icon material-icons">art_track</i>面向谷歌编程的程序员</div>
       </div>
       
@@ -175,11 +175,11 @@
   <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
   <article class="mdui-card mdui-m-b-5">
     <header class="mdui-card-media">
-      <img src="/images/random/material-17.png" style="max-height: 240px;">
+      <img src="/images/random/material-18.png" style="max-height: 240px;">
       <div class="mdui-card-media-covered">
         <div class="mdui-card-primary">
           <div class="mdui-card-primary-title">PHP策略模式在业务的实践总结</div>
-          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-09 / <i class="iconfont">&#xe601;</i> Lee &nbsp;&nbsp; <span id="busuanzi_container_page_pv" style="display: none;"><i class="iconfont">&#xe7fd;</i> <span id="busuanzi_value_page_pv"></span></span></div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2021-12-09 / <i class="iconfont">&#xe601;</i> UndefinedCode &nbsp;&nbsp; <span id="busuanzi_container_page_pv" style="display: none;"><i class="iconfont">&#xe7fd;</i> <span id="busuanzi_value_page_pv"></span></span></div>
         </div>
       </div>
       <div class="mdui-card-menu">
@@ -203,7 +203,7 @@
               <a href="http://service.weibo.com/share/share.php?appkey=&title=PHP策略模式在业务的实践总结&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&pic=https://goldenleek.top/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://twitter.com/intent/tweet?text=PHP策略模式在业务的实践总结&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=Lee" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+              <a href="https://twitter.com/intent/tweet?text=PHP策略模式在业务的实践总结&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=UndefinedCode" target="_blank" class="mdui-ripple">分享到 Twitter</a>
             </li>
             <li class="mdui-menu-item">
               <a href="https://www.facebook.com/sharer/sharer.php?u=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
@@ -215,7 +215,7 @@
               <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="http://connect.qq.com/widget/shareqq/index.html?site=菜鸟程序员的博客&title=PHP策略模式在业务的实践总结&pics=https://goldenleek.top/images/favicon.png&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=UndefinedCode的博客&title=PHP策略模式在业务的实践总结&pics=https://goldenleek.top/images/favicon.png&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 QQ</a>
             </li>
             <li class="mdui-menu-item">
               <a href="https://telegram.me/share/url?url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&text=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 Telegram</a>
@@ -311,7 +311,7 @@
     
   </div>
   <div class="mdui-p-y-1 mdui-text-center">
-    Copyright &copy; 2022 Lee<br>
+    Copyright &copy; 2022 UndefinedCode<br>
     Powered by <a href="https://hexo.io/" target="_blank" class="mdui-text-color-theme-accent">Hexo</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
      <img src="/images/icp_log.png">

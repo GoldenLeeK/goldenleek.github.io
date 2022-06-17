@@ -15,20 +15,20 @@
   <meta name="description" content="【大话设计模式】– 策略者模式(Strategy):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。  策略模式的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。 一. 业务需求背景1.需求目的：用户可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP策略模式在业务的实践总结">
-<meta property="og:url" content="https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
+<meta property="og:url" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="UndefinedCode的博客">
 <meta property="og:description" content="【大话设计模式】– 策略者模式(Strategy):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。  策略模式的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。 一. 业务需求背景1.需求目的：用户可">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.goldenleek.top/1.png">
-<meta property="og:image" content="https://www.goldenleek.top/2.png">
+<meta property="og:image" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/1.png">
+<meta property="og:image" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/2.png">
 <meta property="article:published_time" content="2021-12-09T01:14:18.000Z">
-<meta property="article:modified_time" content="2022-06-17T02:13:00.040Z">
+<meta property="article:modified_time" content="2022-06-17T06:01:57.954Z">
 <meta property="article:author" content="UndefinedCode">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="代码设计">
 <meta property="article:tag" content="PHP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.goldenleek.top/1.png">
+<meta name="twitter:image" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/1.png">
 
   <meta name="keywords" content=",设计模式,代码设计,PHP">
   <meta name="format-detection" content="telephone=no,email=no">
@@ -36,7 +36,7 @@
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="UndefinedCode的博客">
-  <meta name="msapplication-starturl" content="https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
+  <meta name="msapplication-starturl" content="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
   <meta name="msapplication-navbutton-color" content="#9C27B0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="UndefinedCode的博客">
@@ -44,7 +44,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
 
   
-    <link rel="canonical" href="https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
+    <link rel="canonical" href="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
   
 
   <meta name="google-site-verification" content="9rRHCsdzHZru0bf5tyYnzLKzo7j0cV01xQGT-HiUzrE">
@@ -77,7 +77,7 @@
 </header>
 <div class="mdui-dialog" id="search">
   
-    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="请输入关键字"><input type="hidden" name="sitesearch" value="https://www.goldenleek.top"></form>
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="请输入关键字"><input type="hidden" name="sitesearch" value="https://goldenleek.top"></form>
     <div class="search-result"></div>
   
 </div>
@@ -191,7 +191,7 @@
             
             <li class="mdui-menu-item" disabled>
               
-                <img src="http://qr.liantu.com/api.php?w=246&m=10&text=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
+                <img src="http://qr.liantu.com/api.php?w=246&m=10&text=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
               
             </li>
           </ul>
@@ -200,25 +200,25 @@
           <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
           <ul class="mdui-menu" id="share_menu">
             <li class="mdui-menu-item">
-              <a href="http://service.weibo.com/share/share.php?appkey=&title=PHP策略模式在业务的实践总结&url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&pic=https://www.goldenleek.top/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=PHP策略模式在业务的实践总结&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&pic=https://goldenleek.top/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://twitter.com/intent/tweet?text=PHP策略模式在业务的实践总结&url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=UndefinedCode" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+              <a href="https://twitter.com/intent/tweet?text=PHP策略模式在业务的实践总结&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=UndefinedCode" target="_blank" class="mdui-ripple">分享到 Twitter</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://plus.google.com/share?url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+              <a href="https://plus.google.com/share?url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 Google+</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="http://connect.qq.com/widget/shareqq/index.html?site=UndefinedCode的博客&title=PHP策略模式在业务的实践总结&pics=https://www.goldenleek.top/images/favicon.png&url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=UndefinedCode的博客&title=PHP策略模式在业务的实践总结&pics=https://goldenleek.top/images/favicon.png&url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" class="mdui-ripple">分享到 QQ</a>
             </li>
             <li class="mdui-menu-item">
-              <a href="https://telegram.me/share/url?url=https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&text=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+              <a href="https://telegram.me/share/url?url=https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&text=PHP策略模式在业务的实践总结" target="_blank" class="mdui-ripple">分享到 Telegram</a>
             </li>
           </ul>
         
@@ -229,12 +229,12 @@
 <p>【大话设计模式】– 策略者模式(<strong>Strategy</strong>):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。</p>
 </blockquote>
 <p><strong>策略模式</strong>的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。</p>
-<h2 id="一-业务需求背景"><a href="#一-业务需求背景" class="headerlink" title="一. 业务需求背景"></a>一. 业务需求背景</h2><p>1.需求目的：<br>用户可以进行对某种配置进行预约，到达配置的预约时间点，根据Redis队列的预约号执行预约，不同类型的配置预约操作逻辑完全不同。<br>2.流程图：<img src="/1.png"></p>
+<h2 id="一-业务需求背景"><a href="#一-业务需求背景" class="headerlink" title="一. 业务需求背景"></a>一. 业务需求背景</h2><p>1.需求目的：<br>用户可以进行对某种配置进行预约，到达配置的预约时间点，根据Redis队列的预约号执行预约，不同类型的配置预约操作逻辑完全不同。<br>2.流程图：<img src="/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/1.png"></p>
 <h2 id="二-使用策略模式的缘由"><a href="#二-使用策略模式的缘由" class="headerlink" title="二. 使用策略模式的缘由"></a>二. 使用策略模式的缘由</h2><p>此业务由于是要支持不同配置的预约，以及后期可能会有很多种类型的配置，而且不同类型的配置又完成不同，如果直接编码，后期的扩展性以及维护性会比较麻烦。<br>1.正常代码实现：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">makeReservation</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="variable">$type</span> = getReservationTypeByMainkey(<span class="variable">$mainkey</span>);</span><br><span class="line">		<span class="keyword">switch</span>(<span class="variable">$type</span>):&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">&#x27;A&#x27;</span>:</span><br><span class="line">			<span class="keyword">$this</span>-&gt;reservationAConfig(<span class="variable">$mainkey</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">&#x27;B&#x27;</span>:</span><br><span class="line">			<span class="keyword">$this</span>-&gt;reservationBConfig(<span class="variable">$mainkey</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">			.....</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">reservationAConfig</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//这里进行A配置的预约逻辑操作</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">reservationBConfig</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//这里进行B配置的预约逻辑操作</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getReservationTypeByMainkey</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//根据预约号获取预约配置的类型</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样子的实现也是可以满足业务需求，代码的可读性也还好。但是会有一个问题，这种预约的配置种类会很多，会导致switch的语句会越来越多，也可能会修改一些预约配置逻辑。这样子的话就需要修改原来的代码，对于代码质量来说，这并不是一种好的现象。</p>
-<p>2.策略模式实现<br><img src="/2.png"></p>
+<p>2.策略模式实现<br><img src="/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/2.png"></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ReservationStrategy</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">//执行预约配置逻辑操作</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">makeReservation</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//策略处理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReservationHandler</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="variable">$strategy</span> = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">ReservationStrategy <span class="variable">$strategy</span></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;<span class="variable">$strategy</span> = <span class="variable">$strategy</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//封装了策略执行的逻辑，所有执行的预约配置统一调用这个方法</span></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">makeReservation</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;<span class="variable">$strategy</span>-&gt;makeReservation();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//A配置的具体策略类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AReservationStrategy</span> <span class="keyword">implements</span> <span class="title">ReservationStrategy</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">makeReservation</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//这里执行A配置的逻辑操作</span></span><br><span class="line">	;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReservationFacaory</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getReservationInstance</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//这里可以根据预约号做具体逻辑生成策略对象</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//预约控制器代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReservationController</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">makeReservation</span>(<span class="params"><span class="variable">$mainkey</span></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//根据工厂对象创建预约策略实例</span></span><br><span class="line">		<span class="variable">$reservation</span> = ReservationFacaory::getReservationInstance(<span class="variable">$mainkey</span>);</span><br><span class="line">		<span class="comment">//传入实例给策略处理类</span></span><br><span class="line">		<span class="variable">$handler</span> = <span class="keyword">new</span> ReservationHandler(<span class="variable">$reservation</span>);</span><br><span class="line">		<span class="comment">//执行预约策略</span></span><br><span class="line">		<span class="variable">$handler</span>-&gt;makeReservation();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>以上代码使用了<strong>工厂模式</strong>以及<strong>策略模式</strong>的结合，其中<strong>ReservationHandler</strong>类作为处理上下文的类，通过依赖注入相应的策略类，直接调用<strong>makeReservation</strong>方法。在客户端代码只需要调用此方法即可，即使后期预约逻辑也无需改动客户端的代码。在此业务需求，因为需求并不是很大，所以工厂类只是简单实现。如果想要更完善，工厂类根据反射机制以及约定好的类名动态生成实例，这样后期如果扩展类型，只需要实现相应的接口即可，无需改动其他代码，很方便扩展。</p>
@@ -243,7 +243,7 @@
       
       <blockquote>
         
-        <strong>本文链接：</strong><br><a href="https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">https://www.goldenleek.top/2021/12/09/策略模式/</a>
+        <strong>本文链接：</strong><br><a href="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">https://goldenleek.top/2021/12/09/策略模式/</a>
       </blockquote>
     </div>
     <footer class="mdui-card-actions">

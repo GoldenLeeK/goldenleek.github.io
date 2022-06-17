@@ -3,11 +3,11 @@
   <title>UndefinedCode的博客</title>
   
   <subtitle>面向谷歌编程的程序员</subtitle>
-  <link href="https://goldenleek.top/atom.xml" rel="self"/>
+  <link href="https://www.goldenleek.top/atom.xml" rel="self"/>
   
-  <link href="https://goldenleek.top/"/>
+  <link href="https://www.goldenleek.top/"/>
   <updated>2022-06-17T02:13:00.037Z</updated>
-  <id>https://goldenleek.top/</id>
+  <id>https://www.goldenleek.top/</id>
   
   <author>
     <name>UndefinedCode</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>MYSQL索引为什么这么快?了解索引的神奇之处</title>
-    <link href="https://goldenleek.top/2022/06/17/mysql%E7%B4%A2%E5%BC%95/"/>
-    <id>https://goldenleek.top/2022/06/17/mysql%E7%B4%A2%E5%BC%95/</id>
+    <link href="https://www.goldenleek.top/2022/06/17/mysql%E7%B4%A2%E5%BC%95/"/>
+    <id>https://www.goldenleek.top/2022/06/17/mysql%E7%B4%A2%E5%BC%95/</id>
     <published>2022-06-17T02:13:00.037Z</published>
     <updated>2022-06-17T02:13:00.037Z</updated>
     
@@ -34,21 +34,21 @@
     
     
     
-    <category term="数据库" scheme="https://goldenleek.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <category term="数据库" scheme="https://www.goldenleek.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="mysql" scheme="https://goldenleek.top/tags/mysql/"/>
+    <category term="mysql" scheme="https://www.goldenleek.top/tags/mysql/"/>
     
-    <category term="数据库索引" scheme="https://goldenleek.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
+    <category term="数据库索引" scheme="https://www.goldenleek.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
     
-    <category term="Innodb" scheme="https://goldenleek.top/tags/Innodb/"/>
+    <category term="Innodb" scheme="https://www.goldenleek.top/tags/Innodb/"/>
     
   </entry>
   
   <entry>
     <title>PHP策略模式在业务的实践总结</title>
-    <link href="https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
+    <link href="https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://www.goldenleek.top/2021/12/09/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
     <published>2021-12-09T01:14:18.000Z</published>
     <updated>2022-06-17T02:13:00.040Z</updated>
     
@@ -65,14 +65,14 @@
     
     
     
-    <category term="设计模式" scheme="https://goldenleek.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="设计模式" scheme="https://www.goldenleek.top/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://goldenleek.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="设计模式" scheme="https://www.goldenleek.top/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    <category term="代码设计" scheme="https://goldenleek.top/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
+    <category term="代码设计" scheme="https://www.goldenleek.top/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
     
-    <category term="PHP" scheme="https://goldenleek.top/tags/PHP/"/>
+    <category term="PHP" scheme="https://www.goldenleek.top/tags/PHP/"/>
     
   </entry>
   

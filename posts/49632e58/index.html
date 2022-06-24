@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="renderer" content="webkit">
+
+  
+  <title>ImageMagick安装 | UndefinedCode的博客</title>
+
+  <link rel="shortcut icon" href="/images/favicon.png">
+  <link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
+  <meta name="description" content="由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。如果安装过程中遇到一些未知的错误，https:&#x2F;&#x2F;imagemagick.org&#x2F;script&#x2F;download.php 可以去官网看文档解决，或者评论一起解决。  #在Linux（centos7）上安装ImageMagick7.1库以及php的Imagi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageMagick安装">
+<meta property="og:url" content="https://www.goldenleek.top/posts/49632e58/">
+<meta property="og:site_name" content="UndefinedCode的博客">
+<meta property="og:description" content="由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。如果安装过程中遇到一些未知的错误，https:&#x2F;&#x2F;imagemagick.org&#x2F;script&#x2F;download.php 可以去官网看文档解决，或者评论一起解决。  #在Linux（centos7）上安装ImageMagick7.1库以及php的Imagi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-24T03:24:57.000Z">
+<meta property="article:modified_time" content="2022-06-24T04:03:53.475Z">
+<meta property="article:author" content="UndefinedCode">
+<meta property="article:tag" content="IT技术、代码编程、科技、电脑、生活记录、大数据">
+<meta name="twitter:card" content="summary">
+
+  <meta name="keywords" content="">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="theme-color" content="#9C27B0">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="UndefinedCode的博客">
+  <meta name="msapplication-starturl" content="https://www.goldenleek.top/posts/49632e58/">
+  <meta name="msapplication-navbutton-color" content="#9C27B0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="UndefinedCode的博客">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
+    <link rel="canonical" href="https://www.goldenleek.top/posts/49632e58/">
+  
+
+  <meta name="google-site-verification" content="9rRHCsdzHZru0bf5tyYnzLKzo7j0cV01xQGT-HiUzrE">
+  <meta name="baidu-site-verification" content="code-7qCMAL4OPL">
+
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/mdui.css">
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/custom.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-light-blue">
+  <script>var a=localStorage.getItem("mdui-theme-layout-dark");if(a){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(!a){document.getElementsByTagName("body")[0].className+=" mdui-drawer-body-left"};</script>
+  <header id="header" class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-inset">
+  <div class="mdui-toolbar mdui-color-theme">
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="mdui-icon material-icons">menu</i></a>
+    <a href="/" class="mdui-typo-headline">UndefinedCode的博客</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: '搜索'}"><i class="mdui-icon material-icons">search</i></a>
+    <a href="/atom.xml" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'RSS'}"><i class="mdui-icon material-icons">rss_feed</i></a>
+  </div>
+</header>
+<div class="mdui-dialog" id="search">
+  
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="请输入关键字"><input type="hidden" name="sitesearch" value="https://www.goldenleek.top"></form>
+    <div class="search-result"></div>
+  
+</div>
+  <aside id="sidebar" class="mdui-drawer mdui-drawer-full-height">
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(a){document.getElementById("sidebar").className+=" mdui-drawer-close"};</script>
+  <div class="mdui-grid-tile">
+    <img src="/images/banner.png" style="height: 160px;">
+    <img src="/images/avatar.jpg" class="avatar-animation" style="position: absolute; top: 10%; left: 24px; width: 64px; height: 64px; border: 2px solid #fff; border-radius: 50%;">
+    <div class="mdui-grid-tile-actions">
+      <div class="mdui-grid-tile-text">
+        <div class="mdui-grid-tile-title">UndefinedCode</div>
+        <div class="mdui-grid-tile-subtitle"><i class="mdui-icon material-icons">art_track</i>面向谷歌编程的程序员</div>
+      </div>
+      
+        <div class="mdui-grid-tile-buttons">
+          <a href="mailto:leejinhong611@gmail.com" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'leejinhong611@gmail.com'}"><i class="mdui-icon material-icons">email</i></a>
+        </div>
+      
+    </div>
+  </div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    <a href="/" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">home</i>
+      <div class="mdui-list-item-content">主页</div>
+    </a>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-0");if(a){document.getElementsByClassName("mdui-collapse-item")[0].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-deep-orange">archive</i>
+        <div class="mdui-list-item-content">归档</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/archives/2022/06/">六月 2022<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2021/12/">十二月 2021<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-1");if(a){document.getElementsByClassName("mdui-collapse-item")[1].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-green">class</i>
+        <div class="mdui-list-item-content">分类</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-2");if(a){document.getElementsByClassName("mdui-collapse-item")[2].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-brown">bookmark</i>
+        <div class="mdui-list-item-content">标签</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/tags/Innodb/" rel="tag">Innodb<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/PHP/" rel="tag">PHP<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/mysql/" rel="tag">mysql<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <a href="/about" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-purple">person</i>
+      <div class="mdui-list-item-content">关于</div>
+    </a>
+  </div>
+
+  <div class="mdui-divider"></div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-3");if(a){document.getElementsByClassName("mdui-collapse-item")[3].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <div class="mdui-list-item-content">友情链接</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">link</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        
+          <a href="javascript:;" class="mdui-list-item mdui-p-l-2 mdui-text-color-theme mdui-ripple" style="justify-content: center;">链接为空</a>
+        
+      </div>
+    </div>
+  </div>
+</aside>
+  <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-7.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">ImageMagick安装</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2022-06-24 / <i class="iconfont">&#xe601;</i> UndefinedCode &nbsp;&nbsp; <span id="busuanzi_container_page_pv" style="display: none;"><i class="iconfont">&#xe7fd;</i> <span id="busuanzi_value_page_pv"></span></span></div>
+        </div>
+      </div>
+      <div class="mdui-card-menu">
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">发送到手机</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="http://qr.liantu.com/api.php?w=246&m=10&text=https://www.goldenleek.top/posts/49632e58/">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=ImageMagick安装&url=https://www.goldenleek.top/posts/49632e58/&pic=https://www.goldenleek.top/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=ImageMagick安装&url=https://www.goldenleek.top/posts/49632e58/&via=UndefinedCode" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.goldenleek.top/posts/49632e58/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://www.goldenleek.top/posts/49632e58/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.goldenleek.top/posts/49632e58/&title=ImageMagick安装" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=UndefinedCode的博客&title=ImageMagick安装&pics=https://www.goldenleek.top/images/favicon.png&url=https://www.goldenleek.top/posts/49632e58/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://www.goldenleek.top/posts/49632e58/&text=ImageMagick安装" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
+    <div class="mdui-card-content mdui-typo">
+      <blockquote>
+<p>由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。<br>如果安装过程中遇到一些未知的错误，<strong><a target="_blank" rel="noopener" href="https://imagemagick.org/script/download.php">https://imagemagick.org/script/download.php</a></strong> 可以去官网看文档解决，或者评论一起解决。</p>
+</blockquote>
+<p>#在Linux（centos7）上安装ImageMagick7.1库以及php的Imagick扩展</p>
+<p>##1.在Linux上安装ImageMagick7.1<br>安装之前需要配置一下pkg-config,以便 ImageMagick 可以在您的系统上找到某些可选的委托库</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PKG_CONFIG_PATH=<span class="variable">$PKG_CONFIG_PATH</span>:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig</span><br><span class="line">export PKG_CONFIG_PATH</span><br><span class="line">LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:/usr/lib:/usr/lib64:/usr/local/lib:/usr/local/lib64</span><br><span class="line">export LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+<p>安装依赖库（这里我只安装<strong>heic（heif）</strong> 的依赖，其他格式类似一样安装）<br>安装x265(libheif依赖)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.gz</span></span><br><span class="line">tar -zxvf nasm-<span class="number">2.13</span>.<span class="number">03</span>.tar.gz  </span><br><span class="line">cd nasm-<span class="number">2.13</span>.<span class="number">03</span> </span><br><span class="line">./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>安装<strong>libheif</strong>依赖</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz</span></span><br><span class="line"></span><br><span class="line">tar -zxvf libheif-<span class="number">1.12</span>.<span class="number">0</span>.tar.gz</span><br><span class="line">cd libheif-<span class="number">1.12</span>.<span class="number">0</span></span><br><span class="line">./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>最后安装ImageMagick</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//imagemagick.org/archive/ImageMagick-7.1.0-39.tar.gz</span></span><br><span class="line">tar -zxvf ImageMagick-<span class="number">7.1</span>.<span class="number">0</span>-<span class="number">39</span>.tar.gz</span><br><span class="line">cd ImageMagick-<span class="number">7.1</span>.<span class="number">0</span>-<span class="number">39</span></span><br><span class="line">./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>设置环境变量</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&quot;export PATH=<span class="subst">$PATH</span>:/usr/local/ImageMagick/bin&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="comment">//如果需要移除旧版本</span></span><br><span class="line">yum remove ImageMagick -y</span><br><span class="line"><span class="comment">//加载环境变量</span></span><br><span class="line">source /etc/profile</span><br><span class="line"><span class="comment">//验证版本安装是否成功</span></span><br><span class="line">convert -version</span><br><span class="line"><span class="comment">//查看支持格式列表</span></span><br><span class="line">convert -<span class="keyword">list</span> format</span><br></pre></td></tr></table></figure>
+<p>在编译的过程中如果出现报错</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">error</span>: <span class="string">&#x27;libraw_output_params_t&#x27;</span> has no member named <span class="string">&#x27;no_interpolation&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>则需要升级一下你的 libraw 版本</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先卸载当前libraw</span></span><br><span class="line">yum remove libraw</span><br><span class="line"><span class="comment">//安装更高版本的libraw </span></span><br><span class="line">（rpm安装命令）</span><br><span class="line">rpm -ivh https:<span class="comment">//mirrors.tuna.tsinghua.edu.cn/centos/7/os/x86_64/Packages/LibRaw-0.19.4-1.el7.x86_64.rpm</span></span><br><span class="line">（yum安装命令）</span><br><span class="line">yum localinstall -y https:<span class="comment">//mirrors.tuna.tsinghua.edu.cn/centos/7/os/x86_64/Packages/LibRaw-0.19.4-1.el7.x86_64.rpm</span></span><br></pre></td></tr></table></figure>
+<p>安装完重新编辑即可<br>##2.安装PHP的Imagick扩展</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下载、解压、安装imagick-3.4.4</span></span><br><span class="line">wget https:<span class="comment">//pecl.php.net/get/imagick-3.4.4.tgz</span></span><br><span class="line"></span><br><span class="line">tar -zxvf imagick-<span class="number">3.4</span>.<span class="number">4</span>.tgz</span><br><span class="line"></span><br><span class="line">cd imagick-<span class="number">3.4</span>.<span class="number">4</span>.tgz/</span><br><span class="line"></span><br><span class="line">/usr/local/php/bin/phpize</span><br><span class="line"></span><br><span class="line"><span class="comment">//ImageMagick 6.8以上版本目录为/usr/local/include/ImageMagick-X,在configure之前先做下软连接</span></span><br><span class="line">ln -s /usr/local/imagemagick/<span class="keyword">include</span>/ImageMagick-<span class="number">7</span> /usr/local/imagemagick/<span class="keyword">include</span>/ImageMagick</span><br><span class="line"></span><br><span class="line">./configure --with-php-config=/usr/local/php/bin/php-config --with-imagick=/usr/local/imagemagick</span><br><span class="line"></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<p>最后在php.ini中加入imagick.so扩展即可</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extensions=imagick.so</span><br></pre></td></tr></table></figure>
+
+<p>通过升级ImageMagick7支持heic格式处理，由于我们服务器是aws的，在安装的过程中可谓一波三折。不过好在最终也是成功安装完成。希望记录下来过程，给有需要的朋友们一点帮助。</p>
+<p>博客地址:<strong><a href="https://www.goldenleek.top/">https://www.goldenleek.top</a></strong> </p>
+<p>欢迎骚扰~</p>
+<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3>
+      
+      <blockquote>
+        
+        <strong>本文链接：</strong><br><a href="https://www.goldenleek.top/posts/49632e58/">https://www.goldenleek.top/posts/49632e58/</a>
+      </blockquote>
+    </div>
+    <footer class="mdui-card-actions">
+      
+      
+    </footer>
+    
+  </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/posts/75599f8a/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '唯一邀请码生成策略'}">下一篇</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
+  <div id="comment" class="mdui-m-t-5">
+    <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+    clientID: '1f68c6b1a0b713ef0dad',
+    clientSecret: 'c8b1ad717022cebadeae36bf6fd47e7284d19b12',
+    repo: 'blog-comment',
+    owner: 'GoldenLeeK',
+    admin: ['GoldenLeeK'],
+    id: '' || location.pathname,
+    distractionFreeMode: false
+  });
+  gitalk.render('gitalk-container');
+</script>
+  </div>
+
+
+</main>
+  <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
+  <div class="mdui-p-y-0 mdui-text-center">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="mdui-p-y-1 mdui-text-center">
+    Copyright &copy; 2022 UndefinedCode<br>
+    Powered by <a href="https://hexo.io/" target="_blank" class="mdui-text-color-theme-accent">Hexo</a>
+    
+    <br>
+      <span id="busuanzi_container_site_pv" style="display: none;"><i class="iconfont">&#xe7fd;访问次数</i> <span id="busuanzi_value_site_pv"></span></span> &nbsp;&nbsp;
+      <span id="busuanzi_container_site_uv" style="display: none;"><i class="iconfont">&#xe601;访问人数</i> <span id="busuanzi_value_site_uv"></span></span>
+    
+  </div>
+</footer>
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_upward</i></button>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+<script src="/js/mdui.js"></script>
+<script src="/js/script.js"></script>
+
+  
+<script src="/custom.js"></script>
+
+</body>
+</html>

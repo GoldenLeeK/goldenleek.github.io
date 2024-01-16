@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>MYSQL索引为什么这么快?了解索引的神奇之处 | UndefinedCode的博客</title>
+
+    <meta name="description" content="公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。探究一下MYSQL索引为什么这么快？索引究竟是什么？">
+    <meta name="keywords" content="IT技术、代码编程、科技、电脑、生活记录、大数据">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "MYSQL索引为什么这么快?了解索引的神奇之处 | UndefinedCode的博客"  />
+    <meta property="og:description" content= "公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。探究一下MYSQL索引为什么这么快？索引究竟是什么？" />
+    <meta property="og:url" content="https://www.goldenleek.top/posts/3b645433/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="UndefinedCode" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。探究一下MYSQL索引为什么这么快？索引究竟是什么？" />
+    <meta name="twitter:title" content="MYSQL索引为什么这么快?了解索引的神奇之处 | UndefinedCode的博客"/>
+    <meta name="twitter:description" content="公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。探究一下MYSQL索引为什么这么快？索引究竟是什么？"/>
+    <script type="application/ld+json">
+        {
+            "description": "公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。探究一下MYSQL索引为什么这么快？索引究竟是什么？",
+            "author": { "@type": "Person", "name": "UndefinedCode" },
+            "@type": "BlogPosting",
+            "url": "https://www.goldenleek.top/posts/3b645433/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.goldenleek.top/images/avatar.jpg"
+            },
+            "name": "UndefinedCode"
+            },
+            "headline": "MYSQL索引为什么这么快?了解索引的神奇之处 | UndefinedCode的博客",
+            "datePublished": "2022-05-08T14:33:38.103Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://www.goldenleek.top/posts/3b645433/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="UndefinedCode">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>UndefinedCode的博客</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl2xei8wp0000fg8taya25dri" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      MYSQL索引为什么这么快?了解索引的神奇之处
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-05-08T14:33:38.103Z" itemprop="datePublished">2022-05-08</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                <span id="busuanzi_value_page_pv">N</span> views
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <blockquote>
+<p>公司最近组织开展一系列的技术分享会，我借着这次机会把自己以前学的一些知识点重新归纳一下记录起来。首先是对自己技术的积累有好处，其次也是想让自己学习的知识能够更深入的理解，有不足或者错误的地方欢迎指出，共同进步。<br>探究一下MYSQL索引为什么这么快？索引究竟是什么？</p>
+</blockquote>
+<h2 id="1-什么是索引？"><a href="#1-什么是索引？" class="headerlink" title="1.什么是索引？"></a>1.什么是索引？</h2><ul>
+<li>  MYSQL官方文档介绍索引是一种方便快速查询数据的<strong>数据结构</strong>。用我们生活中的例子来讲，索引就好比书的目录，如果没有目录，每次你想要查找某些内容，你必须从头开始查找，这样的效率极其低下。</li>
+<li>  索引一般比较大，所以大部分情况下索引是存在磁盘的索引文件上，也有可能是存在数据文件上。</li>
+<li>  索引的种类有很多：主键索引（这是最常见的一种索引，主键不能为空且必须唯一）、唯一索引（相对于主键索引，它的值可以为空）、全文索引（在char、varchar、text类型可以使用）、普通索引、前缀索引。按照列数来区分：单一索引、组合索引（多字段组成）</li>
+</ul>
+<h2 id="2-MYSQL索引的数据结构"><a href="#2-MYSQL索引的数据结构" class="headerlink" title="2.MYSQL索引的数据结构"></a>2.MYSQL索引的数据结构</h2><p>在讲解MYSQL索引的数据结构之前，我们先看看了解一下其他的数据结构，看看他们的优缺点进行对比。</p>
+<h3 id="2-1-二叉树"><a href="#2-1-二叉树" class="headerlink" title="2.1 二叉树"></a>2.1 二叉树</h3><p>二叉树简单来说就是左节点大于右节点，在理想的情况下，他的查找速度就接近与二分法的性能O(log2n)。因为在内存排序的时间是非常快的，可以忽略不计，所以总的消耗时间就取决于IO的操作次数。二叉树查找速度取决树高,每次查询接口都是一次IO操作，也是性能的瓶颈所在。<br><img src="./mysql%E7%B4%A2%E5%BC%95/1.png"><br>但是也会有这种一种情况,同样也是二叉树，但是他的树非常高，导致查询一次需要多次IO操作，效率及其低下<br><img src="./mysql%E7%B4%A2%E5%BC%95/2.png"></p>
+<h3 id="2-2-平衡二叉树"><a href="#2-2-平衡二叉树" class="headerlink" title="2.2 平衡二叉树"></a>2.2 平衡二叉树</h3><p>平衡二叉树可以解决二叉树不稳定导致查询效率低下的缺点。平衡二叉树的特点：树的左右节点层级最高相差一层。在插入或者删除的情况下，通过左旋转或右旋转使得整个二叉树平衡，不会出现层级相差很多的情况。平衡二叉树的性能接近二分法查找O(log2n)。<br><img src="./mysql%E7%B4%A2%E5%BC%95/3.png"><br>平衡二叉树查找id为8的记录，只需要IO操作2次即可。但是仔细想一下，如果数据量很多呢？假设数据表有100W的数据，根据O(log2n)计算，大约需要20次IO操作。磁盘寻道大概需要10ms，总的查询时间为20 * 10 = 0.2，效率也比较低下。<br>还有就是平衡二叉树不支持范围查询，范围查询每次都需要从根节点遍历，效率及其低下。</p>
+<h3 id="2-3-B-树-改造二叉树成多叉树"><a href="#2-3-B-树-改造二叉树成多叉树" class="headerlink" title="2.3 B-树(改造二叉树成多叉树)"></a>2.3 B-树(改造二叉树成多叉树)</h3><p>之前的几种树形结构适合与小数据量的内存查找，也叫做内查找。在1970年，R.Bayer和E.Mccreight提出了一种适合于外查找的平衡多叉树B-树。MYSQL数据文件是存在磁盘的，每次都是按照一页大小（一般而16K）读取内存。像二叉树、平衡二叉树，每次读取节点都要进行一次IO操作，所以树越高IO操作次数越多。想要提高查询效率，首先要解决的就是降低树高的问题。<br>设想一下，每一次IO操作读取一个节点，读取16K大小的内存数据，但是每次节点的数据实际上远远小于16K。假设节点数据大小为16B，为了让一次IO操作能够读取更多节点，我们可以在每个节点尽可能地存储索引数据。我们在每个节点存储1000个索引数据（1000*16B = 16K），将二叉树改造成多叉树，从树高变成树“胖”，解决了树高的问题，从而降低IO操作次数，提高查询效率。<br><img src="./mysql%E7%B4%A2%E5%BC%95/4.png"><br>B-树的特点：1.每个节点存储多个元素 2.节点的元素包含键值以及数据 3.所有叶子节点存放同一层，具有相同深度，叶子节点之间没有指针连接。这种数据结构解决了树高IO次数多的问题，但是在每个节点存储数据，假设数据一旦很大，每个节点储存的索引数也随之减少，最后还是会导致树很高，查询效率低。其次，B-树不能范围查询。设想一下如果我们要查询15-25范围内的数据，查到15之后就又要重新回到根节点继续查找，这样循环遍历的效率有待提高。</p>
+<h3 id="2-4-B-树（改造B-树）"><a href="#2-4-B-树（改造B-树）" class="headerlink" title="2.4 B+树（改造B-树）"></a>2.4 B+树（改造B-树）</h3><p>结合了B-树的缺点进行改造，就诞生了B+树。B+树跟B-树的差异并不是很大，判断的依据很简单：节点是否存放数据。B+树存放数据的节点只有叶子节点，而且叶子结点双向指针连接，形成了双向有序链表。<br><img src="./mysql%E7%B4%A2%E5%BC%95/5.png"><br>这样一来，除了叶子节点其他存放的都是索引键值，可以很大程度增加节点存放索引树，从理论上树是要比B-树“矮”的。同时B+树支持范围查询，因为底层叶子节点是双向有序链表，而且主键具有唯一性（对于辅助索引后面会讲到），假设范围为15到19，我们只需要查到15记录之后继续往后查询，直到大于19即可，无需从根节点再次遍历，效率较高。</p>
+<h2 id="3-MYSQL索引B-树实践"><a href="#3-MYSQL索引B-树实践" class="headerlink" title="3.MYSQL索引B+树实践"></a>3.MYSQL索引B+树实践</h2><h3 id="MYISAM引擎-主键索引"><a href="#MYISAM引擎-主键索引" class="headerlink" title="MYISAM引擎 (主键索引)"></a>MYISAM引擎 (主键索引)</h3><p>MYISAM引擎是非聚簇索引，也就是说B+树的叶子节点的键值存放索引列的值，数据存在数据在磁盘的地址。MYISAM的索引文件跟数据文件是分开存储的。<br><code>CREATE TABLE</code>student<code>(</code>id<code>int(11) NOT NULL AUTO_INCREMENT,</code>name<code>varchar(20) DEFAULT NULL,</code>age<code>int(11) DEFAULT NULL, PRIMARY KEY (</code>id<code>) USING BTREE, KEY</code>idx_age<code>(</code>age<code>) USING BTREE ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;</code><br>创建了一个表student，id为主键索引,age为普通索引。假设表中有以下数据，现在执行以下语句<br><code>SELECT * FROM stduent WHERE id = 16</code><br><img src="./mysql%E7%B4%A2%E5%BC%95/6.png"><br>具体链路：（实际上逻辑上相邻实际磁盘并不一定相邻，这里只是方便展示）<br>（1）先从磁盘1加载数据到内存，因为18&gt;16走左路（一次IO操作） （2）读取磁盘2加载数据到内存，又因为16&gt;14向下继续读取（一次IO操作） （3）检索叶子节点，判断到等于16则停止（一次IO操作）<br><img src="./mysql%E7%B4%A2%E5%BC%95/7.png"></p>
+<h3 id="MYISAM引擎-辅助索引"><a href="#MYISAM引擎-辅助索引" class="headerlink" title="MYISAM引擎 (辅助索引)"></a>MYISAM引擎 (辅助索引)</h3><p>在MYISAM引擎中，主键索引跟辅助索引的差别并不很大，叶子节点存放的都是磁盘地址，只是辅助索引并并不是唯一值，所以在等值查询检索叶子节点的时候，也要按照范围一样，进行检索数据。</p>
+<h3 id="Innodb引擎-（聚簇索引、主键索引）"><a href="#Innodb引擎-（聚簇索引、主键索引）" class="headerlink" title="Innodb引擎 （聚簇索引、主键索引）"></a>Innodb引擎 （聚簇索引、主键索引）</h3><p>Innodb引擎使用的是聚簇索引。每一个数据表都有一个聚簇索引，采用B+树的数据结构，叶子节点键值对应存放的是整行数据记录。在Innodb中，非聚簇索引就是辅助索引,叶子节点存储的数据是主键值。如果一个表没有主键，innodb引擎会自动构建一个隐藏的rowid在构成聚簇索引。依旧是按照我们刚刚讲解MYISAM引擎的数据表例子：<br><code>SELECT * FROM stduent WHERE age = 37</code><br><img src="./mysql%E7%B4%A2%E5%BC%95/8.png"></p>
+<p>具体链路：（实际上逻辑上相邻实际磁盘并不一定相邻，这里只是方便展示）<br><img src="./mysql%E7%B4%A2%E5%BC%95/9.png"></p>
+<p>（1）先从磁盘1加载数据到内存，因为18&lt;37走左路（一次IO操作） （2）读取磁盘2加载数据到内存，又因为37&gt;24向下继续读取（一次IO操作） （3）检索叶子节点，判断到等于37则停止（一次IO操作） （4）这时候查到的数据就是age字段为37的记录主键值。按照聚簇索引的方式再查找数据就得到了数据结构集（这个过程叫做回表）相同索引字段情况下，按主键字段排序。因为要多加上三次回表操作，效率回相对低一点点。这里有个概念叫做<strong>覆盖索引</strong>，如果查询所需要的字段刚好就是索引字段就不需要回表查询，从而提高了查询效率。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>索引的原理远远不止于这么一点点，组合索引以及一些其他的原理我暂时理解还不是到位，等到后面学习更加理解之后再写一篇文章进行记录总结吧。“学而不思则惘，思而不学则殆”，以前没办法理解这句话的涵义，直到后来才知道总结、思考才是学习最有效率的方式。多总结、多思考，也是作为一名程序员进步的最快方式。</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+  <div class="article-copyright hairline">
+    <p>
+      本記事は  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">「表示 - 非営利 - 改変禁止 4.0 国際 (CC BY-NC-ND 4.0)」</a> を採用。
+    </p>
+  </div>
+  
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/posts/75599f8a/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-title">
+        
+          唯一邀请码生成策略
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/fa2b266c/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-title">PHP策略模式在业务的实践总结</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=MYSQL索引为什么这么快?了解索引的神奇之处 - UndefinedCode的博客&url=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F3b645433%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=MYSQL索引为什么这么快?了解索引的神奇之处 - UndefinedCode的博客&u=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F3b645433%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=MYSQL索引为什么这么快?了解索引的神奇之处 - UndefinedCode的博客&url=https://www.goldenleek.top/posts/3b645433/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/posts/84s8da11/">2023年回首总结</a>
+          </li>
+        
+          <li>
+            <a href="/posts/84d8da12/">ffmpeg视频压缩方案</a>
+          </li>
+        
+          <li>
+            <a href="/posts/49632e58/">ImageMagick安装</a>
+          </li>
+        
+          <li>
+            <a href="/posts/75599f8a/">唯一邀请码生成策略</a>
+          </li>
+        
+          <li>
+            <a href="/posts/3b645433/">MYSQL索引为什么这么快?了解索引的神奇之处</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            UndefinedCode的博客 &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

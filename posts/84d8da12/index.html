@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>ffmpeg视频压缩方案 | UndefinedCode的博客</title>
+
+    <meta name="description" content="视频压缩功能是业务中比较常见的一种需求功能。本文记录作者基于php以及ffmpeg开发的视频压缩服务中的一些做法以及思考点。希望能够帮助到需要的朋友,同时方便自己总结以及回顾。">
+    <meta name="keywords" content="IT技术、代码编程、科技、电脑、生活记录、大数据">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "ffmpeg视频压缩方案 | UndefinedCode的博客"  />
+    <meta property="og:description" content= "视频压缩功能是业务中比较常见的一种需求功能。本文记录作者基于php以及ffmpeg开发的视频压缩服务中的一些做法以及思考点。希望能够帮助到需要的朋友,同时方便自己总结以及回顾。" />
+    <meta property="og:url" content="https://www.goldenleek.top/posts/84d8da12/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="UndefinedCode" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="视频压缩功能是业务中比较常见的一种需求功能。本文记录作者基于php以及ffmpeg开发的视频压缩服务中的一些做法以及思考点。希望能够帮助到需要的朋友,同时方便自己总结以及回顾。" />
+    <meta name="twitter:title" content="ffmpeg视频压缩方案 | UndefinedCode的博客"/>
+    <meta name="twitter:description" content="视频压缩功能是业务中比较常见的一种需求功能。本文记录作者基于php以及ffmpeg开发的视频压缩服务中的一些做法以及思考点。希望能够帮助到需要的朋友,同时方便自己总结以及回顾。"/>
+    <script type="application/ld+json">
+        {
+            "description": "视频压缩功能是业务中比较常见的一种需求功能。本文记录作者基于php以及ffmpeg开发的视频压缩服务中的一些做法以及思考点。希望能够帮助到需要的朋友,同时方便自己总结以及回顾。",
+            "author": { "@type": "Person", "name": "UndefinedCode" },
+            "@type": "BlogPosting",
+            "url": "https://www.goldenleek.top/posts/84d8da12/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.goldenleek.top/images/avatar.jpg"
+            },
+            "name": "UndefinedCode"
+            },
+            "headline": "ffmpeg视频压缩方案 | UndefinedCode的博客",
+            "datePublished": "2022-12-08T06:02:34.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://www.goldenleek.top/posts/84d8da12/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="UndefinedCode">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>UndefinedCode的博客</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clrf29wo00001is8tgjr0czfq" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      ffmpeg视频压缩方案
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-12-08T06:02:34.000Z" itemprop="datePublished">2022-12-08</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                <span id="busuanzi_value_page_pv">N</span> views
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="视频压缩解决方案"><a href="#视频压缩解决方案" class="headerlink" title="视频压缩解决方案"></a>视频压缩解决方案</h1><blockquote>
+<p>什么是ffmepg？按维基百科的说法:FFmpeg 是一个开放源代码的自由软件，可以执行音频和视频多种格式的录影、转换、串流功能，包含了libavcodec——这是一个用于多个项目中音频和视频的解码器库，以及libavformat——一个音频与视频格式转换库</p>
+</blockquote>
+<p>视频压缩,说白了就是要让视频的大小降低,同时尽量不降低质量。如果为了降低大小,画质惨不忍睹这也是不能接受的。接下来就让我们了解一下与视频画质以及大小相关的一些要素</p>
+<h2 id="1-视频相关名称解释"><a href="#1-视频相关名称解释" class="headerlink" title="1.视频相关名称解释"></a>1.视频相关名称解释</h2><p><strong>帧率</strong>：FPS（frame per second 每秒钟要多少帧画面） GOP（表示多少秒一个I帧）</p>
+<p><strong>码率</strong>：编码器每秒编出的数据大小，单位是kbps，比如800kbps代表编码器每秒产生800kb（或100KB）的数据。</p>
+<p><strong>分辨率</strong>：单位英寸中所包含的像素点数；</p>
+<p><strong>VGA</strong>：Video Graphics Array（视频图像分辨率）</p>
+<h2 id="2-如何让视频变小"><a href="#2-如何让视频变小" class="headerlink" title="2.如何让视频变小"></a>2.如何让视频变小</h2><p>想要让视频变小,其中的关键因素是码率以及分辨率。帧率的话大部分情况下较小影响。如果非特殊的一些业务需求，帧率一般不变即可。<br><img src="./ffmpeg%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%96%B9%E6%A1%88/1.png"><br>这里有一条公式:<strong>码率=文件实际大小(kb) X 8/时长(s)</strong>,由此我们可以看出来,码率越大视频所占空间大小就越多。</p>
+<p>按照这样子的说法,我们肯定会想那我把码率调到最低岂不是美滋滋。确实视频的空间大小会急速下降,但是你打开视频肯定会惊呆,画质十分感人根本就看不清。你想一下,码率其实就是编码器每秒编出的数据大小，如果你的码率很低,编码器每秒传输的数据很少,编码器就会用一些奇奇怪怪的马赛克来补充你视频的画面,这就是解释了为什么视频看起来会很模糊还会有一层朦胧的感觉。</p>
+<p>在码率一定的情况下，<strong>分辨率与清晰度成反比关系</strong>：分辨率越高，图像越不清晰，分辨率越低，图像越清晰。 在分辨率一定的情况下，<strong>码率与清晰度成正比关系</strong>，码率越高，图像越清晰；码率越低，图像越不清晰</p>
+<p>还有一个需要注意的地方:<strong>码率跟分辨率需要平衡</strong>。假设分辨率很高,码率比较低,这样子的画质也会有一定的影响的。720p较高的码率跟1080p较低的码率,720p的视频画质可能会看起来更加清晰。</p>
+<h2 id="3-实战"><a href="#3-实战" class="headerlink" title="3.实战"></a>3.实战</h2><p>了解影响视频空间大小的因素后，我们就可以开始对视频的参数进行调整压缩了。为了快速开发,我采用了php的laravel框架以及<a target="_blank" rel="noopener" href="https://github.com/PHP-FFMpeg/PHP-FFMpeg">PHP-FFMpeg</a> 组件进行开发（因为其中涉及到一些云服务商以及业务的处理）。需要依赖ffmpeg，这里就不对ffmpeg安装进行过多讲解，google搜索很多方法。以下是主要的核心压缩代码，已屏蔽了业务相关的代码</p>
+<pre><code class="php">//创建ffmpeg驱动
+$driver =  FFMpeg::create([
+&#39;ffmpeg.binaries&#39;  =&gt; &#39;ffmpeg_binaries&#39;,
+&#39;ffprobe.binaries&#39; =&gt; &#39;ffprobe_binaries&#39;,
+&#39;timeout&#39;          =&gt; &#39;&#39;, // The timeout for the underlying process
+&#39;ffmpeg.threads&#39;   =&gt; &#39;&#39;,   // The number of threads that FFMpeg should use,
+]);
+
+//打开视频
+$video = $driver-&gt;open($filePath)
+
+//这里是拿ffprobe的驱动获取视频的信息
+$streams = $driver-&gt;getFFProbe()
+            -&gt;streams($filePath)
+            -&gt;videos()
+            -&gt;first();
+//拿到对应的分辨率
+$width = $streams-&gt;get(&#39;width&#39;);
+$height = $streams-&gt;get(&#39;height&#39;);
+//压缩到最低分辨率,这里取最短边
+$minResolution = 720;
+//这里是设置的动态码率（最大为1200k）、分辨率设置为720p,如果最短边低于720则不处理
+$addParams = [&quot;-maxrate&quot;, [&quot;1200k&quot;], &quot;-bufsize&quot;, &quot;5000k&quot;];
+ if ($width &gt; $height) &#123;
+       //最短边为高
+       if ($height &gt; $minResolution) &#123;
+          $addParams = array_merge($addParams, [&quot;-vf&quot;, sprintf(&quot;scale=-2:%d&quot;, $minResolution)]);
+        &#125;
+&#125; else &#123;//最短边为宽
+        if ($width &gt; $minResolution) &#123;
+            $addParams = array_merge($addParams, [&quot;-vf&quot;, sprintf(&quot;scale=%d:-2&quot;, $minResolution)]);
+         &#125;
+&#125;
+//这里设置了264编码
+$format = new X264();
+//因为默认设置了码率是1000k所以这里设置为null
+$format-&gt;setKiloBitrate(null);
+//这里了一些额外的参数进行压缩
+$format-&gt;setAdditionalParameters($addParams);    
+$video-&gt;save($format, $tempFile);
+</code></pre>
+<p>以上的php代码其实就是在做一件事,组装ffmpeg命令最终输出文件,至于参数怎么设置可以根据你业务的需要进行调整。<strong>这里在vf参数的scale为啥要输入-2呢,输入-1或者-2都是动态进行调整，这样就不会导致你的视频因为调整视频分辨率而变形。输入-1有可能刚好计算出来的长度或者宽度不能够被2整除就会报错。</strong></p>
+<pre><code class="shell">ffmpeg -y -i 输入视频文件路径 -threads 5 -vcodec libx264 -acodec aac -b:a 128k -maxrate 1200k -bufsize 5000k -vf scale=720:-2 输出视频文件路径
+</code></pre>
+<blockquote>
+<p>以上就是本次我对于视频压缩的一些做法以及见解,如何做好最优解是需要不断的发现问题并解决问题的。现在的压缩效果大体上能满足业务的需求,毕竟代码说到底就是在为业务服务。只要能满足业务需求，并且后期有足够的扩展空间就算是好的解决方案。</p>
+</blockquote>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+  <div class="article-copyright hairline">
+    <p>
+      本記事は  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">「表示 - 非営利 - 改変禁止 4.0 国際 (CC BY-NC-ND 4.0)」</a> を採用。
+    </p>
+  </div>
+  
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/posts/84s8da11/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-title">
+        
+          2023年回首总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/49632e58/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-title">ImageMagick安装</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=ffmpeg视频压缩方案 - UndefinedCode的博客&url=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F84d8da12%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=ffmpeg视频压缩方案 - UndefinedCode的博客&u=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F84d8da12%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=ffmpeg视频压缩方案 - UndefinedCode的博客&url=https://www.goldenleek.top/posts/84d8da12/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/posts/84s8da11/">2023年回首总结</a>
+          </li>
+        
+          <li>
+            <a href="/posts/84d8da12/">ffmpeg视频压缩方案</a>
+          </li>
+        
+          <li>
+            <a href="/posts/49632e58/">ImageMagick安装</a>
+          </li>
+        
+          <li>
+            <a href="/posts/75599f8a/">唯一邀请码生成策略</a>
+          </li>
+        
+          <li>
+            <a href="/posts/3b645433/">MYSQL索引为什么这么快?了解索引的神奇之处</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            UndefinedCode的博客 &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

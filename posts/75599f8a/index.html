@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>唯一邀请码生成策略 | UndefinedCode的博客</title>
+
+    <meta name="description" content="需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。">
+    <meta name="keywords" content="IT技术、代码编程、科技、电脑、生活记录、大数据">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "唯一邀请码生成策略 | UndefinedCode的博客"  />
+    <meta property="og:description" content= "需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。" />
+    <meta property="og:url" content="https://www.goldenleek.top/posts/75599f8a/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="UndefinedCode" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。" />
+    <meta name="twitter:title" content="唯一邀请码生成策略 | UndefinedCode的博客"/>
+    <meta name="twitter:description" content="需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。"/>
+    <script type="application/ld+json">
+        {
+            "description": "需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。",
+            "author": { "@type": "Person", "name": "UndefinedCode" },
+            "@type": "BlogPosting",
+            "url": "https://www.goldenleek.top/posts/75599f8a/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.goldenleek.top/images/avatar.jpg"
+            },
+            "name": "UndefinedCode"
+            },
+            "headline": "唯一邀请码生成策略 | UndefinedCode的博客",
+            "datePublished": "2022-06-17T06:27:18.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://www.goldenleek.top/posts/75599f8a/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="UndefinedCode">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>UndefinedCode的博客</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clrf29wo9000fis8t2bd9f8mf" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      唯一邀请码生成策略
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-06-17T06:27:18.000Z" itemprop="datePublished">2022-06-17</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                <span id="busuanzi_value_page_pv">N</span> views
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <blockquote>
+<p>需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。</p>
+</blockquote>
+<h1 id="目的-：生成不重复的邀请码"><a href="#目的-：生成不重复的邀请码" class="headerlink" title="目的 ：生成不重复的邀请码"></a>目的 ：生成不重复的邀请码</h1><h2 id="1-如何做到不重复"><a href="#1-如何做到不重复" class="headerlink" title="1.如何做到不重复"></a>1.如何做到不重复</h2><ul>
+<li><h3 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h3></li>
+</ul>
+<p>利用生成邀请码时间戳进行生成,并且加上随机数，能保证不同时间生成的邀请码大部分不同（不排序小概率碰撞）。为了减少碰撞率，可以精确到毫秒颗粒度，但同时也增长了邀请码的长度。</p>
+<p>弊端：秒/毫秒颗粒度的时间长度（10/13位）+ 随机码（4位）会导致邀请码的长度达到10+位，这对于用户的体验是极其不好的，而且也容易被猜到邀请码的生成逻辑，因此此方案不推荐。</p>
+<ul>
+<li><h3 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h3></li>
+</ul>
+<p>1.通过方案一的弊端，我们知道生成一个合格的邀请码我们需要解决的第一个问题就是长度。长度的设置是关乎可生成邀请码的数量的范围，设置太少的话邀请码的范围有限，设置太长的码邀请码对于用户的体验不好。所以考虑这两个情况，我们可以将邀请码的长度定义6位。</p>
+<hr>
+<p>2.要解决的第二个问题就是重复的问题。要保证不重复，简单来说最好的方式就是自增，例如1，2，3，….这样子就能保证绝对唯一，可以将用户的自增id作为邀请码的自增值做绑定。这样做的好处就是能够保证不重复，但是很容易被用户猜测到生成逻辑以及一些用户的敏感数据。既然自增能够保证唯一性，那我们不妨换一种思维去思考，可不可以在自增的基础上面将规律给打乱，这样就能保证邀请码唯一且无规律了。</p>
+<hr>
+<p>做法：一个自增点会导致数量连续有规律，那么我们可以设置多个池子，每个池子维护一个自增点，随机去一个池子通过自增id生成，就能够做到随机了。因为邀请码的长度有限制，所以我们需要算出来邀请码最大的范围值有多少，然后将最大的范围值分成若干个池子。</p>
+<p>6位(数字+字母)长度的邀请码,根据可取字符的数量，我们将邀请码的形式设置为36进制数，这样邀请码的范围值就是为000000~<br>zzzzzz,也就是等于十进制的2176782335，相当于我们最多能够生成2176782335个邀请码。如果此数量不满足业务上的需求，可以根据业务要求适当增删。我们假设每个池子能够存储邀请码的数量为10000个，则会有217678个池子。我们每个自增点就等于：<strong>邀请码 = （池子number * 10000 + 自增点)转成32进制</strong> 的字符串。</p>
+<p>用个图来表示以上的过程：</p>
+<p><img src="./%E9%82%80%E8%AF%B7%E7%A0%81%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5/1.png"></p>
+<p>要注意红色字体,每个池子有最大自增点限制，为该池子能够存储邀请的最大数量。通过上述过程就能做到生成一个唯一且无明显规律的邀请码。当然要想最大程度无规律的话，可以将前几个池子给剔除掉，这样子就不会出现000001这样子的邀请码</p>
+<hr>
+<p>代码实践（PHP版本）:主要思路是利用redis集合的特点进行存储自增点以及池子。</p>
+<pre><code class="php">&lt;?php
+class Code&#123;
+protected  Redis $redis;
+private $codeIncrementSet = &#39;code_increment_set&#39;;
+private $codeAvailableSet = &#39;code_available_set&#39;;
+public function __construct()&#123;
+    $this-&gt;redis = new Redis();
+    $this-&gt;init();
+&#125;
+
+//初始化
+private function init()&#123;
+   if (0 === $this-&gt;redis-&gt;exists($this-&gt;codeIncrementSet))&#123;
+    //添加1-217678序号的池子，并且自增点设置为0
+    $this-&gt;redis-&gt;zAdd($this-&gt;codeIncrementSet,array_fill(1,217678),0);
+    //保存1-217678序号的可用池子
+    $this-&gt;redis-&gt;sAddArray($this-&gt;codeAvailableSet,range(1,217678))
+   &#125;
+&#125;
+public function getCode()&#123;
+    //随机取一个可用的邀请码池子
+    if (is_null($index = $this-&gt;redis-&gt;srandmember($codeAvailableSet)))&#123;
+          throw new BusinessException(&#39;可用邀请码码数为空&#39;);
+    &#125;
+    //获取对应需要池子的自增点
+    $increment =  (int)$this-&gt;redis-&gt;zScore($this-&gt;codeIncrementSet,$index)
+    
+    //计算code值
+    $number = (int)index * 10000 + $increment;
+    
+    //维护自增点
+    $this-&gt;redis-&gt;zIncrBy($this-&gt;codeIncrementSet,1,$index);
+    
+    //该池子被用完了
+    if (9999 === $increment)&#123;
+         $this-&gt;redis-&gt;sRem($this-&gt;codeAvailableSet,$index);
+    &#125;
+    //返回36进制的邀请码，用0部位
+     return str_pad(base_convert($number, 10, 36), 6, &#39;0&#39;, STR_PAD_LEFT);
+&#125;
+&#125;
+</code></pre>
+<p>以上就是整体代码的实现，具体的一些细节可根据业务自定义调整。</p>
+<blockquote>
+<h2 id="2-如何做到高性能"><a href="#2-如何做到高性能" class="headerlink" title="2.如何做到高性能"></a>2.如何做到高性能</h2><p>生成用户邀请码是一个频繁的操作，如果每次实时生成的话性能会比较低。可用利用空间换时间的思维。预先生成一批邀请码然后在需要的时候直接拿出来用即可。这种思路在开发中很常见，异步处理，用空间换取时间。通过这种方式就能快速的生成邀请码。</p>
+</blockquote>
+<hr>
+<p>以上就是如何生成唯一无规律邀请码的策略，方法很简单却很有效。将思路输出成文章的形式，能够更好地加深理解，以及能够让更多的人看到，指出其中的不足。</p>
+<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3>
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+  <div class="article-copyright hairline">
+    <p>
+      本記事は  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">「表示 - 非営利 - 改変禁止 4.0 国際 (CC BY-NC-ND 4.0)」</a> を採用。
+    </p>
+  </div>
+  
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/posts/49632e58/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-title">
+        
+          ImageMagick安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/3b645433/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">前の記事</div>
+      <div class="article-nav-title">MYSQL索引为什么这么快?了解索引的神奇之处</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=唯一邀请码生成策略 - UndefinedCode的博客&url=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F75599f8a%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=唯一邀请码生成策略 - UndefinedCode的博客&u=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F75599f8a%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=唯一邀请码生成策略 - UndefinedCode的博客&url=https://www.goldenleek.top/posts/75599f8a/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/posts/84s8da11/">2023年回首总结</a>
+          </li>
+        
+          <li>
+            <a href="/posts/84d8da12/">ffmpeg视频压缩方案</a>
+          </li>
+        
+          <li>
+            <a href="/posts/49632e58/">ImageMagick安装</a>
+          </li>
+        
+          <li>
+            <a href="/posts/75599f8a/">唯一邀请码生成策略</a>
+          </li>
+        
+          <li>
+            <a href="/posts/3b645433/">MYSQL索引为什么这么快?了解索引的神奇之处</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            UndefinedCode的博客 &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

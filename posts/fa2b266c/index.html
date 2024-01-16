@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>PHP策略模式在业务的实践总结 | UndefinedCode的博客</title>
+
+    <meta name="description" content="【大话设计模式】-- 策略者模式(**Strategy**):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。">
+    <meta name="keywords" content="IT技术、代码编程、科技、电脑、生活记录、大数据">
+
+    
+
+    <meta property="og:locale" content="zh-CN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "PHP策略模式在业务的实践总结 | UndefinedCode的博客"  />
+    <meta property="og:description" content= "【大话设计模式】-- 策略者模式(**Strategy**):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。" />
+    <meta property="og:url" content="https://www.goldenleek.top/posts/fa2b266c/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="UndefinedCode" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="【大话设计模式】-- 策略者模式(**Strategy**):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。" />
+    <meta name="twitter:title" content="PHP策略模式在业务的实践总结 | UndefinedCode的博客"/>
+    <meta name="twitter:description" content="【大话设计模式】-- 策略者模式(**Strategy**):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。"/>
+    <script type="application/ld+json">
+        {
+            "description": "【大话设计模式】-- 策略者模式(**Strategy**):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。",
+            "author": { "@type": "Person", "name": "UndefinedCode" },
+            "@type": "BlogPosting",
+            "url": "https://www.goldenleek.top/posts/fa2b266c/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.goldenleek.top/images/avatar.jpg"
+            },
+            "name": "UndefinedCode"
+            },
+            "headline": "PHP策略模式在业务的实践总结 | UndefinedCode的博客",
+            "datePublished": "2021-12-09T01:14:18.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://www.goldenleek.top/posts/fa2b266c/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="UndefinedCode的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="UndefinedCode">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>UndefinedCode的博客</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl2xei8ws0001fg8tdpeb8fah" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      PHP策略模式在业务的实践总结
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-12-09T01:14:18.000Z" itemprop="datePublished">2021-12-09</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                <span id="busuanzi_value_page_pv">N</span> views
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <blockquote>
+<p>【大话设计模式】– 策略者模式(<strong>Strategy</strong>):它定义了算法家族,分别封装起来，让他们之间可以互相替换，此模式让算法的变法，不会影响到使用算法的客户。</p>
+</blockquote>
+<p><strong>策略模式</strong>的核心就是屏蔽内部策略算法，内部的算法是可以随时替换，对外部是没有感知的。若新增或修改内部的算法，只需要修改或者扩展相应的策略类，客户端的代码无需改动,符合设计模式中一个重要的原则：开闭原则。</p>
+<h2 id="一-业务需求背景"><a href="#一-业务需求背景" class="headerlink" title="一. 业务需求背景"></a>一. 业务需求背景</h2><p>1.需求目的：<br>用户可以进行对某种配置进行预约，到达配置的预约时间点，根据Redis队列的预约号执行预约，不同类型的配置预约操作逻辑完全不同。<br>2.流程图：<img src="./%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/1.png"></p>
+<h2 id="二-使用策略模式的缘由"><a href="#二-使用策略模式的缘由" class="headerlink" title="二. 使用策略模式的缘由"></a>二. 使用策略模式的缘由</h2><p>此业务由于是要支持不同配置的预约，以及后期可能会有很多种类型的配置，而且不同类型的配置又完成不同，如果直接编码，后期的扩展性以及维护性会比较麻烦。<br>1.正常代码实现：</p>
+<pre><code class="php">&lt;?php
+    public function makeReservation($mainkey)&#123;
+        $type = getReservationTypeByMainkey($mainkey);
+        switch($type):&#123;
+            case &#39;A&#39;:
+            $this-&gt;reservationAConfig($mainkey);
+            break;
+            case &#39;B&#39;:
+            $this-&gt;reservationBConfig($mainkey);
+            break;
+            .....
+        &#125;
+    &#125;
+    
+    private function reservationAConfig($mainkey)&#123;
+        //这里进行A配置的预约逻辑操作
+    &#125;
+    
+    private function reservationBConfig($mainkey)&#123;
+        //这里进行B配置的预约逻辑操作
+    &#125;
+    
+    private function getReservationTypeByMainkey($mainkey)&#123;
+        //根据预约号获取预约配置的类型
+    &#125;
+</code></pre>
+<p>这样子的实现也是可以满足业务需求，代码的可读性也还好。但是会有一个问题，这种预约的配置种类会很多，会导致switch的语句会越来越多，也可能会修改一些预约配置逻辑。这样子的话就需要修改原来的代码，对于代码质量来说，这并不是一种好的现象。</p>
+<p>2.策略模式实现<br><img src="./%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/2.png"></p>
+<pre><code class="php">&lt;?php
+
+interface ReservationStrategy
+&#123;
+    //执行预约配置逻辑操作
+    public function makeReservation();
+&#125;
+
+//策略处理类
+class ReservationHandler
+&#123;
+    private $strategy = null;
+    public function __construct(ReservationStrategy $strategy)&#123;
+        $this-&gt;$strategy = $strategy;
+    &#125;
+    
+    //封装了策略执行的逻辑，所有执行的预约配置统一调用这个方法
+    public function makeReservation()&#123;
+        $this-&gt;$strategy-&gt;makeReservation();
+    &#125;
+
+&#125;
+
+//A配置的具体策略类
+class AReservationStrategy implements ReservationStrategy
+&#123;
+    public function makeReservation()&#123;
+        //这里执行A配置的逻辑操作
+    ;
+&#125;
+
+class ReservationFacaory
+&#123;
+    public static function getReservationInstance($mainkey)&#123;
+        //这里可以根据预约号做具体逻辑生成策略对象
+    &#125;
+&#125;
+//预约控制器代码
+class ReservationController
+&#123;
+    public function makeReservation($mainkey)&#123;
+        //根据工厂对象创建预约策略实例
+        $reservation = ReservationFacaory::getReservationInstance($mainkey);
+        //传入实例给策略处理类
+        $handler = new ReservationHandler($reservation);
+        //执行预约策略
+        $handler-&gt;makeReservation();
+    &#125;
+
+&#125;
+</code></pre>
+<p>以上代码使用了<strong>工厂模式</strong>以及<strong>策略模式</strong>的结合，其中<strong>ReservationHandler</strong>类作为处理上下文的类，通过依赖注入相应的策略类，直接调用<strong>makeReservation</strong>方法。在客户端代码只需要调用此方法即可，即使后期预约逻辑也无需改动客户端的代码。在此业务需求，因为需求并不是很大，所以工厂类只是简单实现。如果想要更完善，工厂类根据反射机制以及约定好的类名动态生成实例，这样后期如果扩展类型，只需要实现相应的接口即可，无需改动其他代码，很方便扩展。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>实践才能出真知。以前看大话<strong>设计模式</strong>这本书，总觉得自己看了好多遍但是还是云里雾里的，不知道为什么需要这种代码结构。但是通过一个小需求设计这么一个结构，我很快就能get到这种结构带来的好处。虽然在这个业务上，这种结构的优势并没有特别的明显，甚至可能有点增加代码量，但是我相信在后期扩展以及维护方便是有很大的好处的。记录这篇文章，主要是想要记录自己的思考方式以及学习体会，如果有一些不太对的地方欢迎大家指正，一起进步！！</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+  <div class="article-copyright hairline">
+    <p>
+      本記事は  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">「表示 - 非営利 - 改変禁止 4.0 国際 (CC BY-NC-ND 4.0)」</a> を採用。
+    </p>
+  </div>
+  
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/posts/3b645433/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">次の記事</div>
+      <div class="article-nav-title">
+        
+          MYSQL索引为什么这么快?了解索引的神奇之处
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">シェア</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=PHP策略模式在业务的实践总结 - UndefinedCode的博客&url=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2Ffa2b266c%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=PHP策略模式在业务的实践总结 - UndefinedCode的博客&u=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2Ffa2b266c%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=PHP策略模式在业务的实践总结 - UndefinedCode的博客&url=https://www.goldenleek.top/posts/fa2b266c/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/posts/84s8da11/">2023年回首总结</a>
+          </li>
+        
+          <li>
+            <a href="/posts/84d8da12/">ffmpeg视频压缩方案</a>
+          </li>
+        
+          <li>
+            <a href="/posts/49632e58/">ImageMagick安装</a>
+          </li>
+        
+          <li>
+            <a href="/posts/75599f8a/">唯一邀请码生成策略</a>
+          </li>
+        
+          <li>
+            <a href="/posts/3b645433/">MYSQL索引为什么这么快?了解索引的神奇之处</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            UndefinedCode的博客 &copy; 2024<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

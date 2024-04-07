@@ -186,10 +186,14 @@
 </div>
 
             
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a>
+            </div>
+            
 
             
             <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li></ul>
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/" rel="tag">音频处理</a></li></ul>
             </div>
             
 
@@ -210,7 +214,7 @@
 <p><strong>码率</strong>：编码器每秒编出的数据大小，单位是kbps，比如800kbps代表编码器每秒产生800kb（或100KB）的数据。</p>
 <p><strong>分辨率</strong>：单位英寸中所包含的像素点数；</p>
 <p><strong>VGA</strong>：Video Graphics Array（视频图像分辨率）</p>
-<h2 id="2-如何让视频变小"><a href="#2-如何让视频变小" class="headerlink" title="2.如何让视频变小"></a>2.如何让视频变小</h2><p>想要让视频变小,其中的关键因素是码率以及分辨率。帧率的话大部分情况下较小影响。如果非特殊的一些业务需求，帧率一般不变即可。<br><img src="./ffmpeg%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E6%96%B9%E6%A1%88/1.png"><br>这里有一条公式:<strong>码率=文件实际大小(kb) X 8/时长(s)</strong>,由此我们可以看出来,码率越大视频所占空间大小就越多。</p>
+<h2 id="2-如何让视频变小"><a href="#2-如何让视频变小" class="headerlink" title="2.如何让视频变小"></a>2.如何让视频变小</h2><p>想要让视频变小,其中的关键因素是码率以及分辨率。帧率的话大部分情况下较小影响。如果非特殊的一些业务需求，帧率一般不变即可。<br><img src="/posts/84d8da12/1.png"><br>这里有一条公式:<strong>码率&#x3D;文件实际大小(kb) X 8&#x2F;时长(s)</strong>,由此我们可以看出来,码率越大视频所占空间大小就越多。</p>
 <p>按照这样子的说法,我们肯定会想那我把码率调到最低岂不是美滋滋。确实视频的空间大小会急速下降,但是你打开视频肯定会惊呆,画质十分感人根本就看不清。你想一下,码率其实就是编码器每秒编出的数据大小，如果你的码率很低,编码器每秒传输的数据很少,编码器就会用一些奇奇怪怪的马赛克来补充你视频的画面,这就是解释了为什么视频看起来会很模糊还会有一层朦胧的感觉。</p>
 <p>在码率一定的情况下，<strong>分辨率与清晰度成反比关系</strong>：分辨率越高，图像越不清晰，分辨率越低，图像越清晰。 在分辨率一定的情况下，<strong>码率与清晰度成正比关系</strong>，码率越高，图像越清晰；码率越低，图像越不清晰</p>
 <p>还有一个需要注意的地方:<strong>码率跟分辨率需要平衡</strong>。假设分辨率很高,码率比较低,这样子的画质也会有一定的影响的。720p较高的码率跟1080p较低的码率,720p的视频画质可能会看起来更加清晰。</p>
@@ -372,7 +376,7 @@ $video-&gt;save($format, $tempFile);
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/object-Object/" rel="tag">[object Object]</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/" rel="tag">实战记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/" rel="tag">音频处理</a></li></ul>
     </div>
   </div>
 

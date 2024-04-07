@@ -156,7 +156,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-clrf29wo9000fis8t2bd9f8mf" class="article article-type-post" itemscope
+    <article id="post-clupcxfyc000au08t1wks19b0" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -195,7 +195,7 @@
 
             
             <div class="article-busuanzi">
-                <span id="busuanzi_value_page_pv">N</span> 人看过
+                <span id="busuanzi_value_page_pv">N</span> views
             </div>
             
 
@@ -209,7 +209,7 @@
 <li><h3 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h3></li>
 </ul>
 <p>利用生成邀请码时间戳进行生成,并且加上随机数，能保证不同时间生成的邀请码大部分不同（不排序小概率碰撞）。为了减少碰撞率，可以精确到毫秒颗粒度，但同时也增长了邀请码的长度。</p>
-<p>弊端：秒/毫秒颗粒度的时间长度（10/13位）+ 随机码（4位）会导致邀请码的长度达到10+位，这对于用户的体验是极其不好的，而且也容易被猜到邀请码的生成逻辑，因此此方案不推荐。</p>
+<p>弊端：秒&#x2F;毫秒颗粒度的时间长度（10&#x2F;13位）+ 随机码（4位）会导致邀请码的长度达到10+位，这对于用户的体验是极其不好的，而且也容易被猜到邀请码的生成逻辑，因此此方案不推荐。</p>
 <ul>
 <li><h3 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h3></li>
 </ul>
@@ -218,9 +218,9 @@
 <p>2.要解决的第二个问题就是重复的问题。要保证不重复，简单来说最好的方式就是自增，例如1，2，3，….这样子就能保证绝对唯一，可以将用户的自增id作为邀请码的自增值做绑定。这样做的好处就是能够保证不重复，但是很容易被用户猜测到生成逻辑以及一些用户的敏感数据。既然自增能够保证唯一性，那我们不妨换一种思维去思考，可不可以在自增的基础上面将规律给打乱，这样就能保证邀请码唯一且无规律了。</p>
 <hr>
 <p>做法：一个自增点会导致数量连续有规律，那么我们可以设置多个池子，每个池子维护一个自增点，随机去一个池子通过自增id生成，就能够做到随机了。因为邀请码的长度有限制，所以我们需要算出来邀请码最大的范围值有多少，然后将最大的范围值分成若干个池子。</p>
-<p>6位(数字+字母)长度的邀请码,根据可取字符的数量，我们将邀请码的形式设置为36进制数，这样邀请码的范围值就是为000000~<br>zzzzzz,也就是等于十进制的2176782335，相当于我们最多能够生成2176782335个邀请码。如果此数量不满足业务上的需求，可以根据业务要求适当增删。我们假设每个池子能够存储邀请码的数量为10000个，则会有217678个池子。我们每个自增点就等于：<strong>邀请码 = （池子number * 10000 + 自增点)转成32进制</strong> 的字符串。</p>
+<p>6位(数字+字母)长度的邀请码,根据可取字符的数量，我们将邀请码的形式设置为36进制数，这样邀请码的范围值就是为000000~<br>zzzzzz,也就是等于十进制的2176782335，相当于我们最多能够生成2176782335个邀请码。如果此数量不满足业务上的需求，可以根据业务要求适当增删。我们假设每个池子能够存储邀请码的数量为10000个，则会有217678个池子。我们每个自增点就等于：<strong>邀请码 &#x3D; （池子number * 10000 + 自增点)转成32进制</strong> 的字符串。</p>
 <p>用个图来表示以上的过程：</p>
-<p><img src="./%E9%82%80%E8%AF%B7%E7%A0%81%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5/1.png"></p>
+<p><img src="/posts/75599f8a/1.png"></p>
 <p>要注意红色字体,每个池子有最大自增点限制，为该池子能够存储邀请的最大数量。通过上述过程就能做到生成一个唯一且无明显规律的邀请码。当然要想最大程度无规律的话，可以将前几个池子给剔除掉，这样子就不会出现000001这样子的邀请码</p>
 <hr>
 <p>代码实践（PHP版本）:主要思路是利用redis集合的特点进行存储自增点以及池子。</p>
@@ -286,7 +286,7 @@ public function getCode()&#123;
     
   <div class="article-copyright hairline">
     <p>
-      本作品采用  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议 (CC BY-NC-ND 4.0)</a> 进行许可。
+      本記事は  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">「表示 - 非営利 - 改変禁止 4.0 国際 (CC BY-NC-ND 4.0)」</a> を採用。
     </p>
   </div>
   
@@ -297,7 +297,7 @@ public function getCode()&#123;
 <nav class="article-nav">
   
     <a href="/posts/49632e58/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-caption">次の記事</div>
       <div class="article-nav-title">
         
           ImageMagick安装
@@ -307,7 +307,7 @@ public function getCode()&#123;
   
   
     <a href="/posts/3b645433/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-caption">前の記事</div>
       <div class="article-nav-title">MYSQL索引为什么这么快?了解索引的神奇之处</div>
     </a>
   
@@ -315,7 +315,7 @@ public function getCode()&#123;
 
 
     <section class="share">
-        <div class="share-title">分享</div>
+        <div class="share-title">シェア</div>
         <a class="share-item" target="_blank"
             href="https://twitter.com/share?text=唯一邀请码生成策略 - UndefinedCode的博客&url=https%3A%2F%2Fwww.goldenleek.top%2Fposts%2F75599f8a%2F">
             <ion-icon name="logo-twitter"></ion-icon>
@@ -372,7 +372,7 @@ public function getCode()&#123;
   <div class="widget-wrap widget-cate">
     <div class="widget-title"><span>Categories</span></div>
     <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">日常记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -382,7 +382,7 @@ public function getCode()&#123;
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/" rel="tag">音频处理</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Innodb/" rel="tag">Innodb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/" rel="tag">代码设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/" rel="tag">总结思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/" rel="tag">数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/" rel="tag">音频处理</a></li></ul>
     </div>
   </div>
 
@@ -393,6 +393,10 @@ public function getCode()&#123;
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/posts/84s8da11/">2023年回首总结</a>
+          </li>
         
           <li>
             <a href="/posts/84d8da12/">ffmpeg视频压缩方案</a>
@@ -410,10 +414,6 @@ public function getCode()&#123;
             <a href="/posts/3b645433/">MYSQL索引为什么这么快?了解索引的神奇之处</a>
           </li>
         
-          <li>
-            <a href="/posts/fa2b266c/">PHP策略模式在业务的实践总结</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -423,7 +423,7 @@ public function getCode()&#123;
   <div class="widget-wrap widget-archive">
     <div class="widget-title"><span>Archive</span></div>
     <div class="widget-inner">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li></ul>
     </div>
   </div>
 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+  <!-- title -->
+  
+    
+  <title>ImageMagick安装 - lee想主义</title>
+    
+  
+  
+  <!-- open graph -->
+  <meta name="description" content="由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageMagick安装">
+<meta property="og:url" content="https://www.leeee.xyz/posts/49632e58/">
+<meta property="og:site_name" content="lee想主义">
+<meta property="og:description" content="由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-24T03:24:57.000Z">
+<meta property="article:modified_time" content="2024-11-22T07:10:57.163Z">
+<meta property="article:author" content="lee">
+<meta property="article:tag" content="IT技术、代码编程、科技、电脑、生活记录、大数据、创业、生活">
+<meta name="twitter:card" content="summary">
+  <!-- canonical -->
+  
+  <link rel="canonical" href="https://www.leeee.xyz/posts/49632e58/">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+  <!-- CSS -->
+  
+<link rel="stylesheet" href="/css/reset.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/css/markdown.css">
+
+  
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="lee想主义" type="application/atom+xml">
+</head>
+
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">lee想主义</a>
+    <!-- <div class="logo"><a href="/" title="Len"><img src="/img/logo.svg" alt="Len" aria-label="logo" height="20"></a></div> -->
+        <ul class="nav">
+            
+            <li><a href="/">Home</a></li>
+            
+            <li><a href="/archives">Archives</a></li>
+            
+        </ul>
+
+
+    </a>
+</div>
+
+                
+                <div class="post-main">
+    
+        <div class="post-main-title">
+            ImageMagick安装
+        </div>
+        <div class="post-meta">
+            2022-06-24 ｜ 
+            
+                <a href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"># 实战记录</a>
+            
+        </div>
+        <!-- 圆角分类 -->
+        <!-- <div class="tags"> -->
+            <!--  -->
+                <!-- <a href="/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">实战记录</a> -->
+            <!--  -->
+        <!-- </div> -->
+        <div class="post-md">
+            <blockquote>
+<p>由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。<br>如果安装过程中遇到一些未知的错误，<strong><a target="_blank" rel="noopener" href="https://imagemagick.org/script/download.php">https://imagemagick.org/script/download.php</a></strong> 可以去官网看文档解决，或者评论一起解决。</p>
+</blockquote>
+<p>#在Linux（centos7）上安装ImageMagick7.1库以及php的Imagick扩展</p>
+<p>##1.在Linux上安装ImageMagick7.1<br>安装之前需要配置一下pkg-config,以便 ImageMagick 可以在您的系统上找到某些可选的委托库</p>
+<pre><code class="php">PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/lib64:/usr/local/lib:/usr/local/lib64
+export LD_LIBRARY_PATH
+</code></pre>
+<p>安装依赖库（这里我只安装<strong>heic（heif）</strong> 的依赖，其他格式类似一样安装）<br>安装x265(libheif依赖)</p>
+<pre><code class="php">yum install -y fftw fftw-devel fftw-devel bzip2 bzip2-devel freetype-devel libjpeg-devel libpng-devel libtiff-devel giflib-devel zlib-devel ghostscript-devel djvulibre-devel libwmf-devel jasper-devel  libX11-devel libXext-devel libXt-devel lcms-devel libxml2-devel librsvg2-devel OpenEXR-devel openjpeg openjpeg-devel  openjpeg2 openjpeg2-devel openjpeg2-libs  gcc gcc-c++  make cmake automake  libtool   libtool-ltdl-devel lcms2  lcms2-devel LibRaw LibRaw-devel
+
+wget https://www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.gz
+tar -zxvf nasm-2.13.03.tar.gz  
+cd nasm-2.13.03 
+./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+<p>安装<strong>libheif</strong>依赖</p>
+<pre><code class="php">wget https://github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz
+
+tar -zxvf libheif-1.12.0.tar.gz
+cd libheif-1.12.0
+./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+<p>最后安装ImageMagick</p>
+<pre><code class="php">wget https://imagemagick.org/archive/ImageMagick-7.1.0-39.tar.gz
+tar -zxvf ImageMagick-7.1.0-39.tar.gz
+cd ImageMagick-7.1.0-39
+./configure &amp;&amp; make &amp;&amp; make install
+</code></pre>
+<p>设置环境变量</p>
+<pre><code class="php">echo &quot;export PATH=$PATH:/usr/local/ImageMagick/bin&quot; &gt;&gt; /etc/profile
+//如果需要移除旧版本
+yum remove ImageMagick -y
+//加载环境变量
+source /etc/profile
+//验证版本安装是否成功
+convert -version
+//查看支持格式列表
+convert -list format
+</code></pre>
+<p>在编译的过程中如果出现报错</p>
+<pre><code class="php">error: &#39;libraw_output_params_t&#39; has no member named &#39;no_interpolation&#39;
+</code></pre>
+<p>则需要升级一下你的 libraw 版本</p>
+<pre><code class="php">//先卸载当前libraw
+yum remove libraw
+//安装更高版本的libraw 
+（rpm安装命令）
+rpm -ivh https://mirrors.tuna.tsinghua.edu.cn/centos/7/os/x86_64/Packages/LibRaw-0.19.4-1.el7.x86_64.rpm
+（yum安装命令）
+yum localinstall -y https://mirrors.tuna.tsinghua.edu.cn/centos/7/os/x86_64/Packages/LibRaw-0.19.4-1.el7.x86_64.rpm
+</code></pre>
+<p>安装完重新编辑即可<br>##2.安装PHP的Imagick扩展</p>
+<pre><code class="php">//下载、解压、安装imagick-3.4.4
+wget https://pecl.php.net/get/imagick-3.4.4.tgz
+
+tar -zxvf imagick-3.4.4.tgz
+
+cd imagick-3.4.4.tgz/
+
+/usr/local/php/bin/phpize
+
+//ImageMagick 6.8以上版本目录为/usr/local/include/ImageMagick-X,在configure之前先做下软连接
+ln -s /usr/local/imagemagick/include/ImageMagick-7 /usr/local/imagemagick/include/ImageMagick
+
+./configure --with-php-config=/usr/local/php/bin/php-config --with-imagick=/usr/local/imagemagick
+
+make &amp;&amp; make install
+</code></pre>
+<p>最后在php.ini中加入imagick.so扩展即可</p>
+<pre><code class="php">extensions=imagick.so
+</code></pre>
+<p>通过升级ImageMagick7支持heic格式处理，由于我们服务器是aws的，在安装的过程中可谓一波三折。不过好在最终也是成功安装完成。希望记录下来过程，给有需要的朋友们一点帮助。</p>
+<p>博客地址:<strong><a target="_blank" rel="noopener" href="https://www.goldenleek.top/">https://www.goldenleek.top</a></strong> </p>
+<p>欢迎骚扰~</p>
+<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3>
+        </div>
+    
+<!-- tags -->
+
+</div>
+                <div class="footer">
+    <span>Copyright © <script>document.write(new Date().getFullYear())</script> lee想主义</span>
+    <span>Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> with <a target="_blank" rel="noopener" href="https:///imzl.com/zenmind">ZenMind</a></span>
+</div>
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>

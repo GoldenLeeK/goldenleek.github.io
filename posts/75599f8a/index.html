@@ -83,14 +83,14 @@
             <!--  -->
         <!-- </div> -->
         <div class="post-md">
-            <blockquote>
+            <html><head></head><body><blockquote>
 <p>需求：按照随机策略生成一个不重复的邀请码（字母+数字），既要不重复又要保证性能。每个用户对应一个邀请码，必须做到唯一性。邀请码的需要手动输入所以长度不能太长，同时不能让用户猜到邀请码的生成逻辑，所以邀请的生成逻辑也必须要随机。</p>
 </blockquote>
 <h1 id="目的-：生成不重复的邀请码"><a href="#目的-：生成不重复的邀请码" class="headerlink" title="目的 ：生成不重复的邀请码"></a>目的 ：生成不重复的邀请码</h1><h2 id="1-如何做到不重复"><a href="#1-如何做到不重复" class="headerlink" title="1.如何做到不重复"></a>1.如何做到不重复</h2><ul>
 <li><h3 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h3></li>
 </ul>
 <p>利用生成邀请码时间戳进行生成,并且加上随机数，能保证不同时间生成的邀请码大部分不同（不排序小概率碰撞）。为了减少碰撞率，可以精确到毫秒颗粒度，但同时也增长了邀请码的长度。</p>
-<p>弊端：秒&#x2F;毫秒颗粒度的时间长度（10&#x2F;13位）+ 随机码（4位）会导致邀请码的长度达到10+位，这对于用户的体验是极其不好的，而且也容易被猜到邀请码的生成逻辑，因此此方案不推荐。</p>
+<p>弊端：秒/毫秒颗粒度的时间长度（10/13位）+ 随机码（4位）会导致邀请码的长度达到10+位，这对于用户的体验是极其不好的，而且也容易被猜到邀请码的生成逻辑，因此此方案不推荐。</p>
 <ul>
 <li><h3 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h3></li>
 </ul>
@@ -99,36 +99,36 @@
 <p>2.要解决的第二个问题就是重复的问题。要保证不重复，简单来说最好的方式就是自增，例如1，2，3，….这样子就能保证绝对唯一，可以将用户的自增id作为邀请码的自增值做绑定。这样做的好处就是能够保证不重复，但是很容易被用户猜测到生成逻辑以及一些用户的敏感数据。既然自增能够保证唯一性，那我们不妨换一种思维去思考，可不可以在自增的基础上面将规律给打乱，这样就能保证邀请码唯一且无规律了。</p>
 <hr>
 <p>做法：一个自增点会导致数量连续有规律，那么我们可以设置多个池子，每个池子维护一个自增点，随机去一个池子通过自增id生成，就能够做到随机了。因为邀请码的长度有限制，所以我们需要算出来邀请码最大的范围值有多少，然后将最大的范围值分成若干个池子。</p>
-<p>6位(数字+字母)长度的邀请码,根据可取字符的数量，我们将邀请码的形式设置为36进制数，这样邀请码的范围值就是为000000~<br>zzzzzz,也就是等于十进制的2176782335，相当于我们最多能够生成2176782335个邀请码。如果此数量不满足业务上的需求，可以根据业务要求适当增删。我们假设每个池子能够存储邀请码的数量为10000个，则会有217678个池子。我们每个自增点就等于：<strong>邀请码 &#x3D; （池子number * 10000 + 自增点)转成32进制</strong> 的字符串。</p>
+<p>6位(数字+字母)长度的邀请码,根据可取字符的数量，我们将邀请码的形式设置为36进制数，这样邀请码的范围值就是为000000~<br>zzzzzz,也就是等于十进制的2176782335，相当于我们最多能够生成2176782335个邀请码。如果此数量不满足业务上的需求，可以根据业务要求适当增删。我们假设每个池子能够存储邀请码的数量为10000个，则会有217678个池子。我们每个自增点就等于：<strong>邀请码 = （池子number * 10000 + 自增点)转成32进制</strong> 的字符串。</p>
 <p>用个图来表示以上的过程：</p>
 <p><img src="/posts/75599f8a/1.png"></p>
 <p>要注意红色字体,每个池子有最大自增点限制，为该池子能够存储邀请的最大数量。通过上述过程就能做到生成一个唯一且无明显规律的邀请码。当然要想最大程度无规律的话，可以将前几个池子给剔除掉，这样子就不会出现000001这样子的邀请码</p>
 <hr>
 <p>代码实践（PHP版本）:主要思路是利用redis集合的特点进行存储自增点以及池子。</p>
 <pre><code class="php">&lt;?php
-class Code&#123;
+class Code{
 protected  Redis $redis;
-private $codeIncrementSet = &#39;code_increment_set&#39;;
-private $codeAvailableSet = &#39;code_available_set&#39;;
-public function __construct()&#123;
+private $codeIncrementSet = 'code_increment_set';
+private $codeAvailableSet = 'code_available_set';
+public function __construct(){
     $this-&gt;redis = new Redis();
     $this-&gt;init();
-&#125;
+}
 
 //初始化
-private function init()&#123;
-   if (0 === $this-&gt;redis-&gt;exists($this-&gt;codeIncrementSet))&#123;
+private function init(){
+   if (0 === $this-&gt;redis-&gt;exists($this-&gt;codeIncrementSet)){
     //添加1-217678序号的池子，并且自增点设置为0
     $this-&gt;redis-&gt;zAdd($this-&gt;codeIncrementSet,array_fill(1,217678),0);
     //保存1-217678序号的可用池子
     $this-&gt;redis-&gt;sAddArray($this-&gt;codeAvailableSet,range(1,217678))
-   &#125;
-&#125;
-public function getCode()&#123;
+   }
+}
+public function getCode(){
     //随机取一个可用的邀请码池子
-    if (is_null($index = $this-&gt;redis-&gt;srandmember($codeAvailableSet)))&#123;
-          throw new BusinessException(&#39;可用邀请码码数为空&#39;);
-    &#125;
+    if (is_null($index = $this-&gt;redis-&gt;srandmember($codeAvailableSet))){
+          throw new BusinessException('可用邀请码码数为空');
+    }
     //获取对应需要池子的自增点
     $increment =  (int)$this-&gt;redis-&gt;zScore($this-&gt;codeIncrementSet,$index)
     
@@ -139,13 +139,13 @@ public function getCode()&#123;
     $this-&gt;redis-&gt;zIncrBy($this-&gt;codeIncrementSet,1,$index);
     
     //该池子被用完了
-    if (9999 === $increment)&#123;
+    if (9999 === $increment){
          $this-&gt;redis-&gt;sRem($this-&gt;codeAvailableSet,$index);
-    &#125;
+    }
     //返回36进制的邀请码，用0部位
-     return str_pad(base_convert($number, 10, 36), 6, &#39;0&#39;, STR_PAD_LEFT);
-&#125;
-&#125;
+     return str_pad(base_convert($number, 10, 36), 6, '0', STR_PAD_LEFT);
+}
+}
 </code></pre>
 <p>以上就是整体代码的实现，具体的一些细节可根据业务自定义调整。</p>
 <blockquote>
@@ -153,7 +153,7 @@ public function getCode()&#123;
 </blockquote>
 <hr>
 <p>以上就是如何生成唯一无规律邀请码的策略，方法很简单却很有效。将思路输出成文章的形式，能够更好地加深理解，以及能够让更多的人看到，指出其中的不足。</p>
-<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3>
+<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3></body></html>
         </div>
     
 <!-- tags -->

@@ -85,7 +85,7 @@
             <!--  -->
         <!-- </div> -->
         <div class="post-md">
-            <blockquote>
+            <html><head></head><body><blockquote>
 <p>由于ImageMagick7以下不支持heic等图片格式，所以重新安装了ImageMagick7.1版本支持heic格式，并写此文章记录一下。<br>如果安装过程中遇到一些未知的错误，<strong><a target="_blank" rel="noopener" href="https://imagemagick.org/script/download.php">https://imagemagick.org/script/download.php</a></strong> 可以去官网看文档解决，或者评论一起解决。</p>
 </blockquote>
 <p>#在Linux（centos7）上安装ImageMagick7.1库以及php的Imagick扩展</p>
@@ -117,7 +117,7 @@ cd ImageMagick-7.1.0-39
 ./configure &amp;&amp; make &amp;&amp; make install
 </code></pre>
 <p>设置环境变量</p>
-<pre><code class="php">echo &quot;export PATH=$PATH:/usr/local/ImageMagick/bin&quot; &gt;&gt; /etc/profile
+<pre><code class="php">echo "export PATH=$PATH:/usr/local/ImageMagick/bin" &gt;&gt; /etc/profile
 //如果需要移除旧版本
 yum remove ImageMagick -y
 //加载环境变量
@@ -128,7 +128,7 @@ convert -version
 convert -list format
 </code></pre>
 <p>在编译的过程中如果出现报错</p>
-<pre><code class="php">error: &#39;libraw_output_params_t&#39; has no member named &#39;no_interpolation&#39;
+<pre><code class="php">error: 'libraw_output_params_t' has no member named 'no_interpolation'
 </code></pre>
 <p>则需要升级一下你的 libraw 版本</p>
 <pre><code class="php">//先卸载当前libraw
@@ -162,7 +162,7 @@ make &amp;&amp; make install
 <p>通过升级ImageMagick7支持heic格式处理，由于我们服务器是aws的，在安装的过程中可谓一波三折。不过好在最终也是成功安装完成。希望记录下来过程，给有需要的朋友们一点帮助。</p>
 <p>博客地址:<strong><a target="_blank" rel="noopener" href="https://www.goldenleek.top/">https://www.goldenleek.top</a></strong> </p>
 <p>欢迎骚扰~</p>
-<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3>
+<h3 id="互勉：保持空杯心态-做一个有态度的程序员。"><a href="#互勉：保持空杯心态-做一个有态度的程序员。" class="headerlink" title="互勉：保持空杯心态,做一个有态度的程序员。"></a><strong>互勉：保持空杯心态,做一个有态度的程序员。</strong></h3></body></html>
         </div>
     
 <!-- tags -->

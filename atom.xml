@@ -3,11 +3,11 @@
   <title>lee想主义</title>
   
   <subtitle>一腔热血的lee想主义</subtitle>
-  <link href="https://www.leeee.xyz/atom.xml" rel="self"/>
+  <link href="https://www.leeideal.com/atom.xml" rel="self"/>
   
-  <link href="https://www.leeee.xyz/"/>
+  <link href="https://www.leeideal.com/"/>
   <updated>2026-05-19T09:09:08.323Z</updated>
-  <id>https://www.leeee.xyz/</id>
+  <id>https://www.leeideal.com/</id>
   
   <author>
     <name>lee</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>别跟随自己的感受</title>
-    <link href="https://www.leeee.xyz/posts/FeelingsVsFacts/"/>
-    <id>https://www.leeee.xyz/posts/FeelingsVsFacts/</id>
+    <link href="https://www.leeideal.com/posts/FeelingsVsFacts.html"/>
+    <id>https://www.leeideal.com/posts/FeelingsVsFacts.html</id>
     <published>2024-11-22T08:17:32.000Z</published>
     <updated>2026-05-19T09:09:08.323Z</updated>
     
@@ -30,17 +30,17 @@
     
     
     
-    <category term="日常记录" scheme="https://www.leeee.xyz/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+    <category term="日常记录" scheme="https://www.leeideal.com/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
     
     
-    <category term="生活感悟" scheme="https://www.leeee.xyz/tags/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
+    <category term="生活感悟" scheme="https://www.leeideal.com/tags/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
     
   </entry>
   
   <entry>
     <title>2024年7月23日随笔</title>
-    <link href="https://www.leeee.xyz/posts/2024%E5%B9%B47%E6%9C%8823%E6%97%A5%E9%9A%8F%E7%AC%94/"/>
-    <id>https://www.leeee.xyz/posts/2024%E5%B9%B47%E6%9C%8823%E6%97%A5%E9%9A%8F%E7%AC%94/</id>
+    <link href="https://www.leeideal.com/posts/2024%E5%B9%B47%E6%9C%8823%E6%97%A5%E9%9A%8F%E7%AC%94.html"/>
+    <id>https://www.leeideal.com/posts/2024%E5%B9%B47%E6%9C%8823%E6%97%A5%E9%9A%8F%E7%AC%94.html</id>
     <published>2024-07-23T14:56:14.000Z</published>
     <updated>2026-05-19T09:09:08.319Z</updated>
     
@@ -51,17 +51,17 @@
     
     
     
-    <category term="日记" scheme="https://www.leeee.xyz/categories/%E6%97%A5%E8%AE%B0/"/>
+    <category term="日记" scheme="https://www.leeideal.com/categories/%E6%97%A5%E8%AE%B0/"/>
     
     
-    <category term="日记" scheme="https://www.leeee.xyz/tags/%E6%97%A5%E8%AE%B0/"/>
+    <category term="日记" scheme="https://www.leeideal.com/tags/%E6%97%A5%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>2023年回首总结</title>
-    <link href="https://www.leeee.xyz/posts/84s8da11/"/>
-    <id>https://www.leeee.xyz/posts/84s8da11/</id>
+    <link href="https://www.leeideal.com/posts/84s8da11.html"/>
+    <id>https://www.leeideal.com/posts/84s8da11.html</id>
     <published>2024-01-15T14:12:14.000Z</published>
     <updated>2026-05-19T09:09:08.319Z</updated>
     
@@ -72,17 +72,17 @@
     
     
     
-    <category term="日常记录" scheme="https://www.leeee.xyz/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
+    <category term="日常记录" scheme="https://www.leeideal.com/categories/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/"/>
     
     
-    <category term="总结思考" scheme="https://www.leeee.xyz/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/"/>
+    <category term="总结思考" scheme="https://www.leeideal.com/tags/%E6%80%BB%E7%BB%93%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
   <entry>
     <title>ffmpeg视频压缩方案</title>
-    <link href="https://www.leeee.xyz/posts/84d8da12/"/>
-    <id>https://www.leeee.xyz/posts/84d8da12/</id>
+    <link href="https://www.leeideal.com/posts/84d8da12.html"/>
+    <id>https://www.leeideal.com/posts/84d8da12.html</id>
     <published>2022-12-08T06:02:34.000Z</published>
     <updated>2026-05-19T09:09:08.319Z</updated>
     
@@ -93,19 +93,19 @@
     
     
     
-    <category term="实战记录" scheme="https://www.leeee.xyz/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
+    <category term="实战记录" scheme="https://www.leeideal.com/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
     
     
-    <category term="ffmpeg" scheme="https://www.leeee.xyz/tags/ffmpeg/"/>
+    <category term="ffmpeg" scheme="https://www.leeideal.com/tags/ffmpeg/"/>
     
-    <category term="音频处理" scheme="https://www.leeee.xyz/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/"/>
+    <category term="音频处理" scheme="https://www.leeideal.com/tags/%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>ImageMagick安装</title>
-    <link href="https://www.leeee.xyz/posts/49632e58/"/>
-    <id>https://www.leeee.xyz/posts/49632e58/</id>
+    <link href="https://www.leeideal.com/posts/49632e58.html"/>
+    <id>https://www.leeideal.com/posts/49632e58.html</id>
     <published>2022-06-24T03:24:57.000Z</published>
     <updated>2026-05-19T09:09:08.319Z</updated>
     
@@ -116,15 +116,15 @@
     
     
     
-    <category term="实战记录" scheme="https://www.leeee.xyz/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
+    <category term="实战记录" scheme="https://www.leeideal.com/categories/%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
     
     
   </entry>
   
   <entry>
     <title>唯一邀请码生成策略</title>
-    <link href="https://www.leeee.xyz/posts/75599f8a/"/>
-    <id>https://www.leeee.xyz/posts/75599f8a/</id>
+    <link href="https://www.leeideal.com/posts/75599f8a.html"/>
+    <id>https://www.leeideal.com/posts/75599f8a.html</id>
     <published>2022-06-17T06:27:18.000Z</published>
     <updated>2026-05-19T09:09:08.324Z</updated>
     
@@ -136,14 +136,14 @@
     
     
     
-    <category term="代码设计" scheme="https://www.leeee.xyz/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
+    <category term="代码设计" scheme="https://www.leeideal.com/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>MYSQL索引为什么这么快?了解索引的神奇之处</title>
-    <link href="https://www.leeee.xyz/posts/3b645433/"/>
-    <id>https://www.leeee.xyz/posts/3b645433/</id>
+    <link href="https://www.leeideal.com/posts/3b645433.html"/>
+    <id>https://www.leeideal.com/posts/3b645433.html</id>
     <published>2022-05-08T01:24:57.000Z</published>
     <updated>2026-05-19T09:09:08.320Z</updated>
     
@@ -154,21 +154,21 @@
     
     
     
-    <category term="数据库" scheme="https://www.leeee.xyz/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <category term="数据库" scheme="https://www.leeideal.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="mysql" scheme="https://www.leeee.xyz/tags/mysql/"/>
+    <category term="mysql" scheme="https://www.leeideal.com/tags/mysql/"/>
     
-    <category term="数据库索引" scheme="https://www.leeee.xyz/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
+    <category term="数据库索引" scheme="https://www.leeideal.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
     
-    <category term="Innodb" scheme="https://www.leeee.xyz/tags/Innodb/"/>
+    <category term="Innodb" scheme="https://www.leeideal.com/tags/Innodb/"/>
     
   </entry>
   
   <entry>
     <title>PHP策略模式在业务的实践总结</title>
-    <link href="https://www.leeee.xyz/posts/fa2b266c/"/>
-    <id>https://www.leeee.xyz/posts/fa2b266c/</id>
+    <link href="https://www.leeideal.com/posts/fa2b266c.html"/>
+    <id>https://www.leeideal.com/posts/fa2b266c.html</id>
     <published>2021-12-09T01:14:18.000Z</published>
     <updated>2026-05-19T09:09:08.323Z</updated>
     
@@ -179,12 +179,12 @@
     
     
     
-    <category term="设计模式" scheme="https://www.leeee.xyz/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="设计模式" scheme="https://www.leeideal.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="代码设计" scheme="https://www.leeee.xyz/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
+    <category term="代码设计" scheme="https://www.leeideal.com/tags/%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1/"/>
     
-    <category term="PHP" scheme="https://www.leeee.xyz/tags/PHP/"/>
+    <category term="PHP" scheme="https://www.leeideal.com/tags/PHP/"/>
     
   </entry>
   
